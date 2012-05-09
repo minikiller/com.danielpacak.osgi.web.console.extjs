@@ -124,101 +124,18 @@ Ext.define('WebConsole.MainPanel', {
     win.show();
   },
 
-  onBundleInstalled: function(win) {
-    this.networkPanel.update();
-  },
+	onBundleInstalled: function(win) {
+		this.bundleTree.update();
+	},
 
-  onAboutClick: function() {
-    var win = Ext.create('widget.aboutwindow');
-    win.show();
-  },
-  
-  onExtensionsClick : function() {
-	// Set up a model to use in our Store
-	  Ext.define('Extension', {
-	      extend: 'Ext.data.Model',
-	      fields: [
-	          {name: 'name', type: 'string'},
-	          {name: 'desc',  type: 'string'},
-	          {name: 'componentClass', type : 'string'}
-	      ]
-	  });
-	  var myStore = Ext.create('Ext.data.Store', {
-		    model: 'Extension',
-		    proxy: {
-		        type: 'ajax',
-		        url : 'service/extensions',
-		        reader: {
-		            type: 'json'
-		        }
-		    },
-		    autoLoad: true
-		});
-	  
-		var grid = Ext.create('Ext.grid.Panel', {
-		    //title: 'Simpsons',
-			sortableColumns: false,
-		    store: myStore,
-		    columns: [
-		        { header: 'Name',  dataIndex: 'name' },
-		        { header: 'Component', dataIndex: 'componentClass'},
-		        { header: 'Description', dataIndex: 'desc', flex: 1 },
-		        
-		        {xtype:'actioncolumn',
-	            width:50,
-	            items: [{
-                    icon   : 'delete.gif',  // Use a URL in the icon config
-                    tooltip: 'Sell stock',
-                    handler: this.myHandler
-                } ]
-		        }
-		        
-		    ]
-		}); 
-		
-		 var win = Ext.create('Ext.window.Window', {
-			    title: 'Installed Extensions',
-			    height: 200,
-			    width: 600,
-			    layout: 'fit'
-			});
-		 
-		 win.add(grid);
-		 win.show();
-  },
-  
-  myHandler : function(grid, rowIndex, colIndex) {
-	var store = grid.getStore();
-    var rec = store.getAt(rowIndex);
-    var componentClass = rec.get('componentClass');
-    //alert("Run [" + componentClass + "] extension..");
-    var extensionWin = Ext.create(componentClass);
-    extensionWin.show();
-  },
+	onAboutClick: function() {
+		var win = Ext.create('widget.aboutwindow');
+		win.show();
+	},
 
-  onExtensionsClick2 : function() {
-	 //alert('show extensions');
-	  var win = Ext.create('Ext.window.Window', {
-		    title: 'Installed Extensions',
-		    height: 200,
-		    width: 400,
-		    layout: 'fit'
-		});
-	  
-	  var fc = Ext.create('Ext.form.Panel', {
-		  bodyPadding : '12 10 10',
-			border : false,
-			unstyled : true
-	  });
-	  
-	  var textField1 = Ext.create('Ext.form.field.Text', {fieldLabel : 'My Text Field'});
-	  
-	  fc.add(textField1);
-	  
-	  win.add(fc);
-	  //win.addDocked(button);
-	  win.show();
-  }
-
+	onExtensionsClick : function() {
+		var win = Ext.create('widget.extensionwindow');
+		win.show();
+	},
 
 });
