@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
 
 public class BundleReadServlet extends HttpServlet {
 
@@ -79,6 +80,17 @@ public class BundleReadServlet extends HttpServlet {
 				String key = (String) keys.nextElement();
 				String value = String.valueOf(dict.get(key));
 				sb.append(String.format("%s: %s\n", key, value));
+			}
+			return sb.toString();
+		}
+		
+		public String getServices() {
+			StringBuilder sb = new StringBuilder();
+			ServiceReference[] references = bundle.getServicesInUse();
+			if (references != null) {
+				for (ServiceReference ref : references) {
+					sb.append(ref.toString() + "\n");
+				}
 			}
 			return sb.toString();
 		}
