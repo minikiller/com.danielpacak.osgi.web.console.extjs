@@ -11,14 +11,15 @@ Ext.define('WebConsole.App', {
 			layout : 'border',
 			padding : 5,
 			items : [ {
-				xtype : 'box',
-				id : 'header',
-				region : 'north',
-				html : '<h1>OSGi Web Console - ${project.version}</h1>',
-				height : 30
-			},
+					xtype : 'box',
+					id : 'header',
+					region : 'north',
+					html : '<h1>OSGi Web Console - ${project.version}</h1>',
+					height : 30
+				},
 
-			this.createMainPanel() ]
+				this.createMainPanel()
+			]
 		});
 
 		this.callParent(arguments);

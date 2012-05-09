@@ -44,11 +44,11 @@ public class IndexServlet extends HttpServlet {
 		sb.append("<link rel='stylesheet' type='text/css' href='./css/web-console.css'>\n");
 		sb.append("<script type='text/javascript' src='../extjs/4.1.0/bootstrap.js'></script>\n");
 		sb.append("<script type='text/javascript' src='./WebConsole.js'></script>\n");
-		sb.append("<script type='text/javascript' src='./MainPanel.js'></script>\n");
 		sb.append("<script type='text/javascript' src='./BundleTreePanel.js'></script>\n");
-		sb.append("<script type='text/javascript' src='./BundleInfoWindow.js'></script>\n");
+		sb.append("<script type='text/javascript' src='./BundleInfoPanel.js'></script>\n");
 		sb.append("<script type='text/javascript' src='./BundleInstallWindow.js'></script>\n");
 		sb.append("<script type='text/javascript' src='./AboutWindow.js'></script>\n");
+		sb.append("<script type='text/javascript' src='./MainPanel.js'></script>\n");
 		
 		// extensions
 		List<WebConsoleExtension> extensions = getInstalledExtensions();

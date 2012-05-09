@@ -1,22 +1,22 @@
 Ext.define('WebConsole.MainPanel', {
-  extend: 'Ext.panel.Panel',
+	extend : 'Ext.panel.Panel',
+	alias : 'widget.mainpanel',
 
-  alias: 'widget.mainpanel',
+	initComponent : function() {
+		this.bundleInfoPanel = this.createBundleInfoPanel();
+		Ext.apply(this, {
+			layout : 'border',
+			items : [
+				this.createBundleTreePanel(),
+				this.bundleInfoPanel
+			],
+			dockedItems : this.createToolbar()
+		});
+		
+		this.callParent(arguments);
+	},
 
-  initComponent: function(){
-    Ext.apply(this, {
-      layout: 'border',
-      items: [
-        this.createBundleTreePanel()
-        //this.createMapPanel()
-      ],
-      dockedItems: this.createToolbar()
-    });
-
-    this.callParent(arguments);
-  },
-
-	  createToolbar : function() {
+	createToolbar : function() {
 		this.toolbar = Ext.create('widget.toolbar', {
 			items : [ {
 				text : 'Reload',
@@ -40,22 +40,31 @@ Ext.define('WebConsole.MainPanel', {
 		return this.toolbar;
 	},
 
-  createBundleTreePanel: function() {
-    this.networkPanel = Ext.create('widget.bundletreepanel', {
-      region: 'west',
-      padding: '5 0 5 5',
-      width: 350,
-      listeners: {
-        itemclick: this.onBundleClick,
-        itemdblclick: this.onBundleDblClick,
-        scope: this
-      }
-    });
-    return this.networkPanel;
-  },
+	createBundleTreePanel : function() {
+		var bundleTree = Ext.create('widget.bundletreepanel', {
+			region : 'west',
+			padding : '5 0 5 5',
+			width : 350,
+			listeners : {
+				itemclick : this.onBundleClick,
+				itemdblclick : this.onBundleDblClick,
+				scope : this
+			}
+		});
 
-  onBundleClick: function(view, record, item, index, e, eOpts) {
-    var rawId = record.get('id');
+		return bundleTree;
+	},
+
+	createBundleInfoPanel : function() {
+		var bundleInfoPanel = Ext.create('widget.bundleinfopanel', {
+			region : 'center',
+			padding : '5'
+		});
+		return bundleInfoPanel;
+	},
+
+	onBundleDblClick : function(view, record, item, index, e, eOpts) {
+		var rawId = record.get('id');
     /*if (rawId) {
       var id = parseInt(rawId.substring(2));
       if (rawId.charAt(0) == 'n') {
@@ -66,7 +75,7 @@ Ext.define('WebConsole.MainPanel', {
     }*/
   },
 
-  onBundleDblClick: function(view, record, item, index, e, eOpts) {
+  onBundleClick: function(view, record, item, index, e, eOpts) {
     var bundleId = record.get('id');
     if (bundleId != null) {
       this.readBundle(bundleId);
@@ -86,10 +95,8 @@ Ext.define('WebConsole.MainPanel', {
   },
 
   onReadBundleSuccess: function(response) {
-    var values = Ext.JSON.decode(response.responseText);
-    var win = Ext.create('widget.bundleinfowindow');
-    win.setFieldValues(values);
-    win.show();
+    var jsonData = Ext.JSON.decode(response.responseText);
+    this.bundleInfoPanel.setBundle(jsonData);
   },
 
   onReadBundleFailure: function() {
