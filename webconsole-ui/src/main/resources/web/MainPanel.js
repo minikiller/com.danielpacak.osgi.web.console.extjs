@@ -68,7 +68,7 @@ Ext.define('WebConsole.MainPanel', {
 
   onBundleDblClick: function(view, record, item, index, e, eOpts) {
     var bundleId = record.get('id');
-    if (bundleId) {
+    if (bundleId != null) {
       this.readBundle(bundleId);
     }
   },
