@@ -52,10 +52,31 @@ Ext.define('WebConsole.BundleInfoPanel', {
 		});
 
 		Ext.apply(this, {
-			items : this.bundleForm
+			items : this.bundleForm,
+			dockedItems : this.createToolbar()
 		});
 
 		this.callParent(arguments);
+	},
+
+	createToolbar : function() {
+		var toolbar = Ext.create('widget.toolbar', {
+			items : [ {
+				text : 'Stop',
+				handler : this.onReloadClick,
+				scope : this
+			}, {
+				text : 'Update',
+				handler : this.onBundleInstallClick,
+				scope : this
+			}, {
+				text : 'Uninstall',
+				handler : this.onExtensionsClick,
+				scope : this
+			} ]
+		});
+
+		return toolbar;
 	},
 
 	setBundle : function(jsonData) {

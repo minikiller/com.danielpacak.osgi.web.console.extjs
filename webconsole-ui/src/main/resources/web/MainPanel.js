@@ -4,10 +4,11 @@ Ext.define('WebConsole.MainPanel', {
 
 	initComponent : function() {
 		this.bundleInfoPanel = this.createBundleInfoPanel();
+		this.bundleTree = this.createBundleTreePanel();
 		Ext.apply(this, {
 			layout : 'border',
 			items : [
-				this.createBundleTreePanel(),
+				this.bundleTree,
 				this.bundleInfoPanel
 			],
 			dockedItems : this.createToolbar()
@@ -109,7 +110,7 @@ Ext.define('WebConsole.MainPanel', {
   },
 
   onReloadClick: function() {
-    this.networkPanel.update();
+    this.bundleTree.update();
   },
 
   onBundleInstallClick: function() {
