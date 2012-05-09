@@ -34,6 +34,13 @@ Ext.define('WebConsole.BundleInfoPanel', {
 				fieldLabel : 'Bundle Location',
 				readOnly : true,
 				labelWidth : 120
+			}, {
+				xtype : 'textarea',
+				anchor : '100%',
+				name : 'manifestHeaders',
+				fieldLabel : 'Manifest Headers',
+				readOnly : true,
+				labelWidth : 120
 			} ]
 		});
 

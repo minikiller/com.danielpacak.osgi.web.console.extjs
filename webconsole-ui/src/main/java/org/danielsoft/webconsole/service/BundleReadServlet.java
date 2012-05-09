@@ -1,13 +1,16 @@
 package org.danielsoft.webconsole.service;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Date;
+import java.util.Dictionary;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
@@ -18,37 +21,68 @@ public class BundleReadServlet extends HttpServlet {
 	public BundleReadServlet(BundleContext bundleContext) {
 		this.bundleContext = bundleContext;
 	}
-	
+
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		resp.setContentType("application/json");
 		Long bundleId = Long.valueOf(req.getParameter("bundleId"));
-		PrintWriter out = resp.getWriter();
+
 		Bundle bundle = bundleContext.getBundle(bundleId);
-		out.println(toJson(bundle));
+		
+		JsonBundle jsonBundle = new JsonBundle(bundle);
+		ObjectMapper om = new ObjectMapper();
+		om.writeValue(resp.getWriter(), jsonBundle);
 	}
-	
-	String toJson(Bundle bundle) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("{");
-		sb.append("bundleId : " + bundle.getBundleId() + ",");
-		sb.append("location : '" + bundle.getLocation() + "',");
-		sb.append("version : '" + bundle.getVersion() + "',");
-		sb.append("lastModified : " + bundle.getLastModified() + ",");
-		sb.append("state : '" + state(bundle.getState()) + "',");
-		sb.append("symbolicName : '" + bundle.getSymbolicName() + "',");
-		sb.append("servicesInUse : '" + bundle.getServicesInUse() + "'");
-		sb.append("}");
-		return sb.toString();
-	}
-	
-	String state(int state) {
-		switch (state) {
-		case Bundle.ACTIVE:
-			return "ACTIVE";
+
+	class JsonBundle {
+		Bundle bundle;
+		public JsonBundle(Bundle bundle) {
+			this.bundle = bundle;
+		}
+
+		public Long getBundleId() {
+			return bundle.getBundleId();
+		}
+
+		public String getLocation() {
+			return bundle.getLocation();
+		}
+
+		public String getVersion() {
+			return bundle.getVersion().toString();
+		}
+
+		public Date getLastModified() {
+			return new Date(bundle.getLastModified());
+		}
+
+		public String getState() {
+			int state = bundle.getState();
+			switch (state) {
+			case Bundle.ACTIVE:
+				return "ACTIVE";
 			default:
 				return "UNKNOWN";
+			}
 		}
+
+		public String getSymbolicName() {
+			return bundle.getSymbolicName();
+		}
+		
+		public String getManifestHeaders() {
+			Dictionary dict = bundle.getHeaders();
+			//List<String> headers = new ArrayList<String>();
+			StringBuilder sb = new StringBuilder();
+			Enumeration<String> keys = dict.keys();
+			while (keys.hasMoreElements()) {
+				String key = (String) keys.nextElement();
+				String value = String.valueOf(dict.get(key));
+				sb.append(String.format("%s: %s\n", key, value));
+			}
+			return sb.toString();
+		}
+
 	}
 
 }
