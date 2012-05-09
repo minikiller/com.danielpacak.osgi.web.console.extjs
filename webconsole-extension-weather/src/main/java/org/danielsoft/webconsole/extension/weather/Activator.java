@@ -11,7 +11,6 @@ import org.osgi.service.http.HttpService;
 
 public class Activator implements BundleActivator, ServiceListener {
 
-	
 	private BundleContext bundleContext;
 	private HttpService httpService;
 	private ServiceRegistration serviceRegistration;
@@ -26,16 +25,16 @@ public class Activator implements BundleActivator, ServiceListener {
 		ServiceReference[] httpServiceRefs = bundleContext.getServiceReferences(null, httpServiceFilter);
 		
 		if (httpServiceRefs != null) {
-			registerResources(httpServiceRefs[0]);
+			registerResourcesAndServlets(httpServiceRefs[0]);
 		} else {
 			bundleContext.addServiceListener(this, httpServiceFilter);
 		}
 
 	}
-	
+
 	public void serviceChanged(ServiceEvent event) {
 		if (event.getType() == ServiceEvent.REGISTERED) {
-			registerResources(event.getServiceReference());
+			registerResourcesAndServlets(event.getServiceReference());
 		}
 	}
 
@@ -43,12 +42,16 @@ public class Activator implements BundleActivator, ServiceListener {
 		serviceRegistration.unregister();
 		bundleContext.removeServiceListener(this);
 	}
-	
-	void registerResources(ServiceReference httpServiceRef) {
+
+	void registerResourcesAndServlets(ServiceReference httpServiceRef) {
 		try {
 			System.out.println("Registering resources for hello extension..");
 			httpService = (HttpService) bundleContext.getService(httpServiceRef);
 			httpService.registerResources("/webconsole/weather", "/web", null);
+
+			TemperaturesServlet temperaturesServlet = new TemperaturesServlet();
+			httpService.registerServlet("/webconsole/weather/service/temperatures", temperaturesServlet, null, null);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println("Error while registering resources: " + e);

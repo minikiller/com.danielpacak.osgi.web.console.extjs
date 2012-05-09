@@ -6,8 +6,8 @@ Ext.define('WebConsole.Extension.HelloWindow', {
 
   initComponent: function() {
     Ext.apply(this, {
-        width: 640,
-        height: 480,
+        width: 400,
+        height: 300,
         modal: true,
         title: 'Hello',
         layout: 'fit',

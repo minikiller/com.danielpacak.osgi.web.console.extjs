@@ -4,7 +4,7 @@ Ext.define('WebConsole.BundleInfoWindow', {
 	alias : 'widget.bundleinfowindow',
 	plain : true,
 
-	initComponent : function() {
+	initComponent2 : function() {
 		this.form = Ext.create('widget.form', {
 			bodyPadding : '12 10 10',
 			border : false,
