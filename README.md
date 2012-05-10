@@ -6,7 +6,7 @@ It is very similar to the Apache Felix Web Console (http://felix.apache.org/) bu
 The Web UI is built with Sencha Ext JS 4.1.x (http://www.sencha.com/products/extjs/) and is supposed to be
 extendable by developing plug-ins.
 
-![OSGi Web Console Screenshot](https://github.com/overshard/pinry/raw/master/screenshot.png)
+![OSGi Web Console Screenshot](https://github.com/danielpacak/osgi-enterprise-webconsole/blob/master/README/osgi-web-console.png)
 
 
 Quick Start
