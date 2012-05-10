@@ -50,6 +50,7 @@ public class IndexServlet extends HttpServlet {
 		sb.append("<script type='text/javascript' src='./AboutWindow.js'></script>\n");
 		sb.append("<script type='text/javascript' src='./MainPanel.js'></script>\n");
 		sb.append("<script type='text/javascript' src='./BundlesPanel.js'></script>\n");
+		sb.append("<script type='text/javascript' src='./SystemInfoPanel.js'></script>\n");
 		sb.append("<script type='text/javascript' src='./ExtensionWindow.js'></script>\n");
 
 		
@@ -64,7 +65,7 @@ public class IndexServlet extends HttpServlet {
 		sb.append("<script type='text/javascript'>\n");
 		sb.append("Ext.Loader.setConfig({enabled : true});\n");
 		sb.append("Ext.onReady(function() {\n");
-		sb.append("  var app = new WebConsole.App();\n");
+		sb.append("  var app = Ext.create('WebConsole');\n");
 		sb.append("});\n");
 		sb.append("</script>\n");
 		sb.append("</head>\n");

@@ -3,7 +3,7 @@
  * 
  * @author Daniel Pacak
  */
-Ext.define('WebConsole.App', {
+Ext.define('WebConsole', {
 	extend : 'Ext.container.Viewport',
 
 	initComponent : function() {
@@ -11,15 +11,14 @@ Ext.define('WebConsole.App', {
 			layout : 'border',
 			padding : 5,
 			items : [ {
-					xtype : 'box',
-					id : 'header',
-					region : 'north',
-					html : '<h1>OSGi Web Console - ${project.version}</h1>',
-					height : 30
-				},
+				xtype : 'box',
+				id : 'header',
+				region : 'north',
+				html : '<h1>OSGi Web Console - ${project.version}</h1>',
+				height : 30
+			},
 
-				this.createMainPanel()
-			]
+			this.createMainPanel() ]
 		});
 
 		this.callParent(arguments);
@@ -30,6 +29,20 @@ Ext.define('WebConsole.App', {
 			region : 'center'
 		});
 		return this.mainPanel;
+	},
+
+	statics : {
+		/**
+		 * A generic Ajax call failure handler that displays the error message.
+		 */
+		onAjaxFailure : function(response) {
+			Ext.MessageBox.show({
+				title : 'Application Error',
+				msg : 'There was a problem processing your request. Please try again later or contact your system administrator.',
+				buttons : Ext.MessageBox.OK,
+				icon : Ext.MessageBox.ERROR
+			});
+		}
 	}
 
 });

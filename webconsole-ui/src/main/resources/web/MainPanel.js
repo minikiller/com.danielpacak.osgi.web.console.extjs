@@ -9,6 +9,10 @@ Ext.define('WebConsole.MainPanel', {
 				title : 'Bundles',
 				iconCls : 'tabs',
 				xtype : 'bundlespanel'
+			}, {
+				title : 'System Information',
+				iconCls : 'tabs',
+				xtype : 'systeminfopanel'
 			} ]
 		});
 

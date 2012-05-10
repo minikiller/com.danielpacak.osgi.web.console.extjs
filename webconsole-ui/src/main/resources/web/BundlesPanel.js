@@ -91,23 +91,14 @@ Ext.define('WebConsole.BundlesPanel', {
           bundleId: bundleId
         },
         success: this.onReadBundleSuccess,
-        failure: this.onReadBundleFailure,
+        failure: WebConsole.onAjaxFailure,
         scope: this
       });
   },
 
   onReadBundleSuccess: function(response) {
-    var jsonData = Ext.JSON.decode(response.responseText);
+    var jsonData = Ext.decode(response.responseText);
     this.bundleInfoPanel.setBundle(jsonData);
-  },
-
-  onReadBundleFailure: function() {
-    Ext.MessageBox.show({
-      title: 'Application Error',
-      msg: 'There was a problem processing your request. Please try again later or contact your system administrator.',
-      buttons: Ext.MessageBox.OK,
-      icon: Ext.MessageBox.ERROR
-    });
   },
 
   onReloadClick: function() {
