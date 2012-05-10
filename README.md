@@ -9,7 +9,7 @@ extendible by developing various plug-ins.
 Why do we need yet another OSGi Web Console? Although beginning with Release 1.2.8 the [Apache Felix Web Console][0] is using [JQuery][2]
 to enhance the user experience and keep Web browser support on the broadest possible basis, for me it is still not quite enough.
 I believe that [Sencha Ext JS 4.1.x][1] is the right choice for the time being. Even if I am wrong, in the worst case this application
-will be a nice example of using [Sencha Ext JS 4.1.x][1].
+will be a nice example of using this amazing RIA framework.
 
 ![OSGi Web Console Screenshot](https://github.com/danielpacak/osgi-enterprise-webconsole/raw/master/README/osgi-web-console.png)
 
