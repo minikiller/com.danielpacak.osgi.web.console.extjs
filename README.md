@@ -8,8 +8,8 @@ extendable by developing plug-ins.
 
 Quick Start
 =========== 
-1. Clone git repository: C:/>git clone https://danielpacak@github.com/danielpacak/osgi-enterprise-webconsole.git
-2. Change directory: C:/>cd osgi-enterprise-webconsole
-3. Build the project: C:/>mvn install
-4. Run the Web Console on Apache Felix OSGi framework: C:/>webconsole-runner/run-on-apache-felix.bat
+1. Clone git repository: git clone https://danielpacak@github.com/danielpacak/osgi-enterprise-webconsole.git
+2. Change directory: cd osgi-enterprise-webconsole
+3. Build the project: mvn install
+4. Run the Web Console on Apache Felix OSGi framework: webconsole-runner/run-on-apache-felix.bat
 5. Go to http://localhost:8080/webconsole/index.html
