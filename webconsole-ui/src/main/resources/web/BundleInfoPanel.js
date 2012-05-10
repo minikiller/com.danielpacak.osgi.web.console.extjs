@@ -28,6 +28,13 @@ Ext.define('WebConsole.BundleInfoPanel', {
 				readOnly : true,
 				labelWidth : 120
 			}, {
+				xtype : 'textarea',
+				anchor : '100%',
+				name : 'description',
+				fieldLabel : 'Description',
+				readOnly : true,
+				labelWidth : 120
+			}, {
 				xtype : 'textfield',
 				anchor : '100%',
 				name : 'location',

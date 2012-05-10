@@ -52,6 +52,11 @@ public class BundleReadServlet extends HttpServlet {
 		public String getVersion() {
 			return bundle.getVersion().toString();
 		}
+		
+		public String getDescription() {
+			Dictionary manifestHeaders = bundle.getHeaders();
+			return (String) manifestHeaders.get("Bundle-Description"); // TODO CONSTANT
+		}
 
 		public Date getLastModified() {
 			return new Date(bundle.getLastModified());
