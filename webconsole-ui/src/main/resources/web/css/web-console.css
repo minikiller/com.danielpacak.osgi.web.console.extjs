@@ -5,6 +5,11 @@
  #header {
     background: url("images/layout-browser-hd-bg.gif") repeat-x scroll center center #7F99BE;
 }
+
+.tabs {
+    background-image:url(images/tabs.gif ) !important;
+}
+
 #header h1 {
     color: #FFFFFF;
     font-size: 16px;

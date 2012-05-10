@@ -49,6 +49,7 @@ public class IndexServlet extends HttpServlet {
 		sb.append("<script type='text/javascript' src='./BundleInstallWindow.js'></script>\n");
 		sb.append("<script type='text/javascript' src='./AboutWindow.js'></script>\n");
 		sb.append("<script type='text/javascript' src='./MainPanel.js'></script>\n");
+		sb.append("<script type='text/javascript' src='./BundlesPanel.js'></script>\n");
 		sb.append("<script type='text/javascript' src='./ExtensionWindow.js'></script>\n");
 
 		
