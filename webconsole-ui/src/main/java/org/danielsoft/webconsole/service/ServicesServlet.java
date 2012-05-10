@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 import org.osgi.framework.InvalidSyntaxException;
@@ -58,6 +60,7 @@ public class ServicesServlet extends HttpServlet {
 
 	class JsonService implements Serializable {
 		ServiceReference serviceReference;
+		
 		public JsonService(ServiceReference serviceReference) {
 			this.serviceReference = serviceReference;
 		}
@@ -74,8 +77,36 @@ public class ServicesServlet extends HttpServlet {
 			return String.valueOf(serviceReference.getProperty(Constants.SERVICE_PID));
 		}
 
+		public List<JsonBundle> getUsingBundles() {
+			Bundle[] bundles = serviceReference.getUsingBundles();
+			if (bundles != null) {
+				List<JsonBundle> jsonBundles = new ArrayList<JsonBundle>();
+				for (Bundle bundle : bundles) {
+					jsonBundles.add(new JsonBundle(bundle));
+				}
+				return jsonBundles;
+			} else {
+				return Collections.emptyList();
+			}
+		}
+
 	}
-	
+
+	class JsonBundle implements Serializable {
+		Bundle bundle;
+		public JsonBundle(Bundle bundle) {
+			this.bundle = bundle;
+		}
+
+		public long getId() {
+			return bundle.getBundleId();
+		}
+
+		public String getSymbolicName() {
+			return bundle.getSymbolicName();
+		}
+	}
+
 	String getPropertyAsString(Object value) {
 		if (value == null) {
 			return "N/A";
