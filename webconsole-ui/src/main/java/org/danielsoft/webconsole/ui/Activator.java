@@ -6,6 +6,7 @@ import org.danielsoft.webconsole.service.BundleServlet;
 import org.danielsoft.webconsole.service.BundleTreeServlet;
 import org.danielsoft.webconsole.service.ExtensionServlet;
 import org.danielsoft.webconsole.service.IndexServlet;
+import org.danielsoft.webconsole.service.ServicesServlet;
 import org.danielsoft.webconsole.service.SystemInfoServlet;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -56,6 +57,7 @@ public class Activator implements BundleActivator, ServiceListener {
 			BundleReadServlet bundleReadServlet = new BundleReadServlet(bundleContext);
 			SystemInfoServlet systemInfoServlet = new SystemInfoServlet();
 			BundleInstallServlet bundleInstallServlet = new BundleInstallServlet(bundleContext);
+			ServicesServlet servicesServlet = new ServicesServlet(bundleContext);
 			ExtensionServlet extensionServlet = new ExtensionServlet(bundleContext);
 
 			httpService.registerServlet("/webconsole/index.html", indexServlet, null, null);
@@ -64,6 +66,7 @@ public class Activator implements BundleActivator, ServiceListener {
 			httpService.registerServlet("/webconsole/service/bundles/read", bundleReadServlet, null, null);
 			httpService.registerServlet("/webconsole/service/bundles/install", bundleInstallServlet, null, null);
 			httpService.registerServlet("/webconsole/service/system", systemInfoServlet, null, null);
+			httpService.registerServlet("/webconsole/service/services", servicesServlet, null, null);
 			httpService.registerServlet("/webconsole/service/extensions", extensionServlet, null, null);
 
 		} catch (Exception e) {
