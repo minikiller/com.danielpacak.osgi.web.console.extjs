@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
+@SuppressWarnings("serial")
 public class SystemInfoServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -22,7 +23,6 @@ public class SystemInfoServlet extends HttpServlet {
 	}
 
 	class JsonSystemInfo implements Serializable {
-
 		public String getJavaRuntime() {
 			return System.getProperty("java.runtime.name") + "(build "
 					+ System.getProperty("java.runtime.version") + ")";
@@ -33,6 +33,23 @@ public class SystemInfoServlet extends HttpServlet {
 					+ System.getProperty("java.vm.version") + ", "
 					+ System.getProperty("java.vm.info") + ")";
 		}
+
+		public long getFreeMemory() {
+			return Runtime.getRuntime().freeMemory() / 1024;
+		}
+
+		public long getTotalMemory() {
+			return Runtime.getRuntime().totalMemory() / 1024;
+		}
+
+		public long getUsedMemory() {
+			return getTotalMemory() - getFreeMemory();
+		}
+
+		public int getNumberOfProcessors() {
+			return Runtime.getRuntime().availableProcessors();
+		}
+
 	}
 
 }
