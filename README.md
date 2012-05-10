@@ -13,5 +13,3 @@ Quick Start
 3. Build the project: mvn install
 4. Run the Web Console on Apache Felix OSGi framework: webconsole-runner/run-on-apache-felix.bat
 5. Go to http://localhost:8080/webconsole/index.html
-
-play with it
