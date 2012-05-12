@@ -19,22 +19,22 @@
 		<dependency>
 			<groupId>org.danielsoft.osgi.enterprise</groupId>
 			<artifactId>webconsole-extjs-wrapper</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.danielsoft.osgi.enterprise</groupId>
 			<artifactId>webconsole-ui</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.danielsoft.osgi.enterprise</groupId>
 			<artifactId>webconsole-extension-hello</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.danielsoft.osgi.enterprise</groupId>
 			<artifactId>webconsole-extension-weather</artifactId>
-			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.danielsoft.osgi.enterprise</groupId>
+			<artifactId>webconsole-extension-chart</artifactId>
 		</dependency>
 		<!-- OSGi HTTP Service implementation (for auction-buyer-http) -->
 		<dependency>
