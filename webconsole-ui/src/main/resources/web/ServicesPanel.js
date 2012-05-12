@@ -11,9 +11,11 @@ Ext.define('WebConsole.ServicesPanel', {
 			}, {
 				name : 'types',
 				type : 'string'
+			}, {
+				name : 'bundle'
 			} ]
 		});
-		var store = Ext.create('Ext.data.Store', {
+		this.serviceStore = Ext.create('Ext.data.Store', {
 			model : 'WebConsole.data.Service',
 			proxy : {
 				type : 'ajax',
@@ -30,7 +32,7 @@ Ext.define('WebConsole.ServicesPanel', {
 			padding : '5',
 			region : 'center',
 			sortableColumns : false,
-			store : store,
+			store : this.serviceStore,
 			columns : [ {
 				header : 'Id',
 				dataIndex : 'id'
@@ -39,7 +41,10 @@ Ext.define('WebConsole.ServicesPanel', {
 				dataIndex : 'types',
 				flex : 1
 			}, {
-				header : 'Bundle'
+				header : 'Bundle',
+				width : 250,
+				renderer : this._bundleRenderer,
+				dataIndex : 'bundle'
 			} ]
 		});
 
@@ -50,6 +55,10 @@ Ext.define('WebConsole.ServicesPanel', {
 		});
 
 		this.callParent(arguments);
+	},
+
+	_bundleRenderer : function(jsonBundle) {
+		return jsonBundle.symbolicName + ' (' + jsonBundle.id + ')';
 	},
 
 	createToolbar : function() {
@@ -75,8 +84,9 @@ Ext.define('WebConsole.ServicesPanel', {
 
 	onReloadSuccess : function(response) {
 		var jsonData = Ext.decode(response.responseText);
-		alert(response.responseText);
-		//this.systemInfoForm.getForm().setValues(jsonData);
+		//alert(response.responseText);
+		this.serviceStore.load();
+		// this.systemInfoForm.getForm().setValues(jsonData);
 	}
 
 });

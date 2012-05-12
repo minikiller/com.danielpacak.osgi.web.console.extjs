@@ -77,6 +77,10 @@ public class ServicesServlet extends HttpServlet {
 			return String.valueOf(serviceReference.getProperty(Constants.SERVICE_PID));
 		}
 
+		public JsonBundle getBundle() {
+			return new JsonBundle(serviceReference.getBundle());
+		}
+
 		public List<JsonBundle> getUsingBundles() {
 			Bundle[] bundles = serviceReference.getUsingBundles();
 			if (bundles != null) {
