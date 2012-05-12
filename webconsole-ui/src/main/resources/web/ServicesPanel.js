@@ -12,7 +12,14 @@ Ext.define('WebConsole.ServicesPanel', {
 				name : 'types',
 				type : 'string'
 			}, {
-				name : 'bundle'
+				name : 'bundle',
+				type : 'object'
+			}, {
+				name : 'properties',
+				type : 'object'
+			}, {
+				name : 'usingBundles',
+				type : 'object'
 			} ]
 		});
 		this.serviceStore = Ext.create('Ext.data.Store', {
@@ -51,6 +58,26 @@ Ext.define('WebConsole.ServicesPanel', {
 			} ]
 		});
 
+		this.servicesGrid.getView().on('render', function(view) {
+			view.tip = Ext.create('Ext.tip.ToolTip', {
+				target : view.el,
+				delegate : view.itemSelector,
+				trackMouse : true,
+				autoHide : false,
+				renderTo : Ext.getBody(),
+				listeners : {
+					beforeshow : function updateTipBody(tip) {
+						var jsonProperties = view.getRecord(tip.triggerElement).get('properties');
+						var jsonUsingBundles = view.getRecord(tip.triggerElement).get('usingBundles');
+						var text = '<b>Properties:</b> ' + Ext.encode(jsonProperties) + '<br/>'
+							+ '<b>Using Bundle(s):</b> ' + Ext.encode(jsonUsingBundles);
+						
+						tip.update(text);
+					}
+				}
+			});
+		});
+
 		Ext.apply(this, {
 			layout : 'border',
 			items : this.servicesGrid,
@@ -60,7 +87,7 @@ Ext.define('WebConsole.ServicesPanel', {
 		this.callParent(arguments);
 	},
 
-	_bundleRenderer : function(jsonBundle) {
+	_bundleRenderer : function(jsonBundle, metaData) {
 		return jsonBundle.symbolicName + ' (' + jsonBundle.id + ')';
 	},
 
@@ -87,9 +114,7 @@ Ext.define('WebConsole.ServicesPanel', {
 
 	onReloadSuccess : function(response) {
 		var jsonData = Ext.decode(response.responseText);
-		// alert(response.responseText);
 		this.serviceStore.load();
-		// this.systemInfoForm.getForm().setValues(jsonData);
 	}
 
 });

@@ -67,6 +67,7 @@ public class IndexServlet extends HttpServlet {
 		sb.append("<script type='text/javascript'>\n");
 		sb.append("Ext.Loader.setConfig({enabled : true});\n");
 		sb.append("Ext.onReady(function() {\n");
+		sb.append("  Ext.QuickTips.init();\n");
 		sb.append("  var app = Ext.create('WebConsole');\n");
 		sb.append("});\n");
 		sb.append("</script>\n");
