@@ -7,7 +7,7 @@ Ext.define('WebConsole.ServicesPanel', {
 			extend : 'Ext.data.Model',
 			fields : [ {
 				name : 'id',
-				type : 'string'
+				type : 'long'
 			}, {
 				name : 'types',
 				type : 'string'
@@ -25,13 +25,16 @@ Ext.define('WebConsole.ServicesPanel', {
 					root : 'services'
 				}
 			},
+			sorters : [ {
+				property : 'id',
+				direction : 'ASC'
+			} ],
 			autoLoad : true
 		});
 
 		this.servicesGrid = Ext.create('Ext.grid.Panel', {
 			padding : '5',
 			region : 'center',
-			sortableColumns : false,
 			store : this.serviceStore,
 			columns : [ {
 				header : 'Id',
@@ -84,7 +87,7 @@ Ext.define('WebConsole.ServicesPanel', {
 
 	onReloadSuccess : function(response) {
 		var jsonData = Ext.decode(response.responseText);
-		//alert(response.responseText);
+		// alert(response.responseText);
 		this.serviceStore.load();
 		// this.systemInfoForm.getForm().setValues(jsonData);
 	}

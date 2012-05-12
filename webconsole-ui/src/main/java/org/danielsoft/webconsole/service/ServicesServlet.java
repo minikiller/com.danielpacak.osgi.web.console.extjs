@@ -5,7 +5,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -42,7 +44,7 @@ public class ServicesServlet extends HttpServlet {
 			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	};
-	
+
 	class JsonServices implements Serializable {
 		private List<JsonService> services;
 		JsonServices(ServiceReference[] serviceReferences) {
@@ -65,8 +67,8 @@ public class ServicesServlet extends HttpServlet {
 			this.serviceReference = serviceReference;
 		}
 
-		public String getId() {
-			return String.valueOf(serviceReference.getProperty(Constants.SERVICE_ID));
+		public Long getId() {
+			return (Long) serviceReference.getProperty(Constants.SERVICE_ID);
 		}
 
 		public String getTypes() {
@@ -79,6 +81,17 @@ public class ServicesServlet extends HttpServlet {
 
 		public JsonBundle getBundle() {
 			return new JsonBundle(serviceReference.getBundle());
+		}
+
+		public Map<String, String> getProperties() {
+			Map<String, String> propertiesMap = new HashMap<String, String>();
+			String[] keys = serviceReference.getPropertyKeys();
+			for (String key : keys) {
+				if (!key.equals(Constants.SERVICE_ID) && !key.equals(Constants.OBJECTCLASS)) {
+					propertiesMap.put(key, String.valueOf(serviceReference.getProperty(key)));
+				}
+			}
+			return propertiesMap;
 		}
 
 		public List<JsonBundle> getUsingBundles() {
