@@ -17,6 +17,10 @@ Ext.define('WebConsole.MainPanel', {
 				title : 'System Information',
 				iconCls : 'tabs',
 				xtype : 'systeminfopanel'
+			}, {
+				title : 'Extensions',
+				iconCls : 'tabs',
+				xtype : 'extensionspanel'
 			} ]
 		});
 

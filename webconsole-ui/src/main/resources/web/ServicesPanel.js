@@ -45,7 +45,7 @@ Ext.define('WebConsole.ServicesPanel', {
 				flex : 1
 			}, {
 				header : 'Bundle',
-				width : 250,
+				width : 300,
 				renderer : this._bundleRenderer,
 				dataIndex : 'bundle'
 			} ]

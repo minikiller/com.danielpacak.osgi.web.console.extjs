@@ -15,6 +15,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
 
+@SuppressWarnings("serial")
 public class IndexServlet extends HttpServlet {
 	
 	private BundleContext bundleContext;
@@ -52,7 +53,7 @@ public class IndexServlet extends HttpServlet {
 		sb.append("<script type='text/javascript' src='./BundlesPanel.js'></script>\n");
 		sb.append("<script type='text/javascript' src='./ServicesPanel.js'></script>\n");
 		sb.append("<script type='text/javascript' src='./SystemInfoPanel.js'></script>\n");
-		sb.append("<script type='text/javascript' src='./ExtensionWindow.js'></script>\n");
+		sb.append("<script type='text/javascript' src='./ExtensionsPanel.js'></script>\n");
 
 		
 		// extensions

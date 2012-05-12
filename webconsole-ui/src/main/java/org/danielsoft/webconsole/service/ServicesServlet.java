@@ -45,8 +45,8 @@ public class ServicesServlet extends HttpServlet {
 		}
 	};
 
-	class JsonServices implements Serializable {
-		private List<JsonService> services;
+	class JsonServices {
+		List<JsonService> services;
 		JsonServices(ServiceReference[] serviceReferences) {
 			if (serviceReferences != null) {
 				services = new ArrayList<JsonService>(serviceReferences.length);
@@ -60,10 +60,9 @@ public class ServicesServlet extends HttpServlet {
 		}
 	}
 
-	class JsonService implements Serializable {
+	class JsonService {
 		ServiceReference serviceReference;
-		
-		public JsonService(ServiceReference serviceReference) {
+		JsonService(ServiceReference serviceReference) {
 			this.serviceReference = serviceReference;
 		}
 
@@ -109,9 +108,9 @@ public class ServicesServlet extends HttpServlet {
 
 	}
 
-	class JsonBundle implements Serializable {
+	class JsonBundle {
 		Bundle bundle;
-		public JsonBundle(Bundle bundle) {
+		JsonBundle(Bundle bundle) {
 			this.bundle = bundle;
 		}
 
