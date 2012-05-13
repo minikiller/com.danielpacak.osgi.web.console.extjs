@@ -8,7 +8,7 @@ Ext.define('WebConsole.Extension.ChartWindow',{
 			width : 400,
 			height : 300,
 			modal : true,
-			title : 'Chart Extension',
+			title : 'OSGi Web Console Extension: Chart',
 			layout : 'border',
 			items : [ this.chart ],
 			buttons : [ {

@@ -33,7 +33,7 @@ public class DataServlet extends HttpServlet {
 
 	List<JsonPoint> getData() {
 		List<JsonPoint> points = new ArrayList<JsonPoint>();
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 20; i++) {
 			points.add(new JsonPoint(i, i * i));
 		}
 		return points;

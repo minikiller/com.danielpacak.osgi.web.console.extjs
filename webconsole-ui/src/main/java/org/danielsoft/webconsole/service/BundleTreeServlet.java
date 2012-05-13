@@ -1,16 +1,19 @@
 package org.danielsoft.webconsole.service;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
+@SuppressWarnings("serial")
 public class BundleTreeServlet extends HttpServlet {
 	
 	private BundleContext bundleContext;
@@ -18,30 +21,39 @@ public class BundleTreeServlet extends HttpServlet {
 	public BundleTreeServlet(BundleContext bundleContext) {
 		this.bundleContext = bundleContext;
 	}
-	
+
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		resp.setContentType("application/json");
+		resp.setCharacterEncoding("UTF-8");
 		Bundle[] bundles = bundleContext.getBundles();
-		PrintWriter out = resp.getWriter();
-		out.println("[");
-		for (int i = 0; i < bundles.length; i++) {
-			out.println(toJson(bundles[i]));
-			if (i < bundles.length - 1) {
-				out.println(",");
-			}
-		}
-		out.println("]");
+		List<JsonTreeNode> treeNodes = getJsonTreeNodes(bundles);
+		ObjectMapper om = new ObjectMapper();
+		om.writeValue(resp.getWriter(), treeNodes);
 	}
-	
-	String toJson(Bundle bundle) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("{");
-		sb.append("'id' : " + bundle.getBundleId() + ",");
-		sb.append("'text' : '" + bundle.getBundleId() + " - " + bundle.getSymbolicName() + " - " + bundle.getVersion() + "',");
-		sb.append("'leaf' : true");
-		sb.append("}");
-		return sb.toString();
+
+	List<JsonTreeNode> getJsonTreeNodes(Bundle[] bundles) {
+		List<JsonTreeNode> treeNodes = new ArrayList<JsonTreeNode>(bundles.length);
+		for (Bundle b : bundles) {
+			treeNodes.add(new JsonTreeNode(b));
+		}
+		return treeNodes;
+	}
+
+	class JsonTreeNode {
+		Bundle bundle;
+		public JsonTreeNode(Bundle bundle) {
+			this.bundle = bundle;
+		}
+		public long getId() {
+			return bundle.getBundleId();
+		}
+		public String getText() {
+			return "" + bundle.getBundleId() + " - " + bundle.getSymbolicName() + " - " + bundle.getVersion();
+		}
+		public boolean isLeaf() {
+			return true;
+		}
 	}
 
 }
