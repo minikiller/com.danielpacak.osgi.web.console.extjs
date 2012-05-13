@@ -49,9 +49,8 @@ public class Activator implements BundleActivator, ServiceListener {
 			httpService = (HttpService) bundleContext.getService(httpServiceRef);
 			httpService.registerResources("/webconsole/chart", "/web", null);
 
-			//TemperaturesServlet temperaturesServlet = new TemperaturesServlet();
-			//httpService.registerServlet("/webconsole/weather/service/temperatures", temperaturesServlet, null, null);
-			
+			DataServlet dataServlet = new DataServlet(bundleContext);
+			httpService.registerServlet("/webconsole/chart/service/data", dataServlet, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println("Error while registering resources: " + e);
