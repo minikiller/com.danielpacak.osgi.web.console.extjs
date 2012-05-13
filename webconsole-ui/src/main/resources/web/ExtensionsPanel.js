@@ -36,6 +36,7 @@ Ext.define('WebConsole.ExtensionsPanel', {
 		});
 
 		this.extensionsGrid = Ext.create('Ext.grid.Panel', {
+			dockedItems : this._createToolbar(),
 			padding : '5',
 			region : 'center',
 			sortableColumns : false,
@@ -73,8 +74,7 @@ Ext.define('WebConsole.ExtensionsPanel', {
 
 		Ext.apply(this, {
 			layout : 'border',
-			items : this.extensionsGrid,
-			dockedItems : this._createToolbar()
+			items : this.extensionsGrid
 		});
 
 		this.callParent(arguments);
@@ -84,6 +84,7 @@ Ext.define('WebConsole.ExtensionsPanel', {
 		this.toolbar = Ext.create('widget.toolbar', {
 			items : [ {
 				text : 'Reload',
+				icon : 'css/images/reload.png',
 				handler : this.onReloadClick,
 				scope : this
 			} ]

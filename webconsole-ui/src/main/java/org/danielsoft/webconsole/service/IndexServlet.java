@@ -40,7 +40,7 @@ public class IndexServlet extends HttpServlet {
 		sb.append("<head>\n");
 		sb.append("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />\n");
 		sb.append("<meta name='Author' content='Daniel Pacak, pacak.daniel@gmail.com' />\n");
-		sb.append("<title>OSGi Web Console - ${project.version}</title>\n");
+		sb.append("<title>OSGi Web Console</title>\n");
 		sb.append("<link rel='stylesheet' type='text/css' href='../extjs/4.1.0/resources/css/ext-all.css'>\n");
 		sb.append("<link rel='stylesheet' type='text/css' href='./css/web-console.css'>\n");
 		sb.append("<script type='text/javascript' src='../extjs/4.1.0/bootstrap.js'></script>\n");

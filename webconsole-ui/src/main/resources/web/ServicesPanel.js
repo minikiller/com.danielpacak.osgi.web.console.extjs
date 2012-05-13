@@ -40,6 +40,7 @@ Ext.define('WebConsole.ServicesPanel', {
 		});
 
 		this.servicesGrid = Ext.create('Ext.grid.Panel', {
+			dockedItems : this._createToolbar(),
 			padding : '5',
 			region : 'center',
 			store : this.serviceStore,
@@ -85,8 +86,7 @@ Ext.define('WebConsole.ServicesPanel', {
 
 		Ext.apply(this, {
 			layout : 'border',
-			items : this.servicesGrid,
-			dockedItems : this.createToolbar()
+			items : this.servicesGrid
 		});
 
 		this.callParent(arguments);
@@ -96,10 +96,11 @@ Ext.define('WebConsole.ServicesPanel', {
 		return jsonBundle.symbolicName + ' (' + jsonBundle.id + ')';
 	},
 
-	createToolbar : function() {
+	_createToolbar : function() {
 		this.toolbar = Ext.create('widget.toolbar', {
 			items : [ {
 				text : 'Reload',
+				icon : 'css/images/reload.png',
 				handler : this.onReloadClick,
 				scope : this
 			} ]

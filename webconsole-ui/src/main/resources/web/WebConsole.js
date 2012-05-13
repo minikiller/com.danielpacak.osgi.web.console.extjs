@@ -14,7 +14,7 @@ Ext.define('WebConsole', {
 				xtype : 'box',
 				id : 'header',
 				region : 'north',
-				html : '<h1>OSGi Web Console - ${project.version}</h1>',
+				html : '<h1>OSGi Web Console</h1>',
 				height : 30
 			},
 
