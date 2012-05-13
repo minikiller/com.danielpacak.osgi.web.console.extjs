@@ -55,6 +55,12 @@ Ext.define('WebConsole.ServicesPanel', {
 				width : 300,
 				renderer : this._bundleRenderer,
 				dataIndex : 'bundle'
+			}, {
+				xtype : 'actioncolumn',
+				icon : 'css/images/service_test.png',
+				width : 50,
+				align : 'center',
+				handler : this.onTestServiceClick
 			} ]
 		});
 
@@ -71,7 +77,6 @@ Ext.define('WebConsole.ServicesPanel', {
 						var jsonUsingBundles = view.getRecord(tip.triggerElement).get('usingBundles');
 						var text = '<b>Properties:</b> ' + Ext.encode(jsonProperties) + '<br/>'
 							+ '<b>Using Bundle(s):</b> ' + Ext.encode(jsonUsingBundles);
-						
 						tip.update(text);
 					}
 				}
@@ -115,6 +120,26 @@ Ext.define('WebConsole.ServicesPanel', {
 	onReloadSuccess : function(response) {
 		var jsonData = Ext.decode(response.responseText);
 		this.serviceStore.load();
+	},
+
+	onTestServiceClick : function(grid, rowIndex, colIndex) {
+		var store = grid.getStore();
+		var rec = store.getAt(rowIndex);
+		var serviceId = rec.get('id');
+
+		Ext.Ajax.request({
+			url : 'service/services/read',
+			params : {
+				serviceId : serviceId
+			},
+			success : function ccc(response) { alert(response.responseText); },
+			failure : WebConsole.onAjaxFailure,
+			scope : this
+		});
+	},
+	
+	onReadServiceSuccess : function(response) {
+		alert(response.responseText);
 	}
 
 });

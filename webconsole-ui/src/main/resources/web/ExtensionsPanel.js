@@ -62,8 +62,10 @@ Ext.define('WebConsole.ExtensionsPanel', {
 			}, {
 				xtype : 'actioncolumn',
 				width : 50,
+				align : 'center',
 				items : [ {
-					icon : 'delete.gif', // Use a URL in the icon config
+					icon : 'css/images/extension_go.png', // Use a URL in the icon config
+					tooltip : 'Run this extension',
 					handler : this.onRunExtensionClick
 				} ]
 			} ]

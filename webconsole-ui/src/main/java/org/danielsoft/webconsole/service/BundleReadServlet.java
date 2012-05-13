@@ -15,6 +15,7 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
+@SuppressWarnings("serial")
 public class BundleReadServlet extends HttpServlet {
 
 	private BundleContext bundleContext;
@@ -26,6 +27,7 @@ public class BundleReadServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		resp.setContentType("application/json");
+		resp.setCharacterEncoding("UTF-8");
 		Long bundleId = Long.valueOf(req.getParameter("bundleId"));
 
 		Bundle bundle = bundleContext.getBundle(bundleId);
@@ -37,7 +39,7 @@ public class BundleReadServlet extends HttpServlet {
 
 	class JsonBundle {
 		Bundle bundle;
-		public JsonBundle(Bundle bundle) {
+		JsonBundle(Bundle bundle) {
 			this.bundle = bundle;
 		}
 
@@ -52,7 +54,7 @@ public class BundleReadServlet extends HttpServlet {
 		public String getVersion() {
 			return bundle.getVersion().toString();
 		}
-		
+
 		public String getDescription() {
 			Dictionary manifestHeaders = bundle.getHeaders();
 			return (String) manifestHeaders.get("Bundle-Description"); // TODO CONSTANT
