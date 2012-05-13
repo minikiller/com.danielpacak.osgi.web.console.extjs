@@ -72,11 +72,11 @@ Ext.define('WebConsole.BundleInfoPanel', {
 				text : 'Stop',
 				handler : this.onReloadClick,
 				scope : this
-			}, {
+			}, '-', {
 				text : 'Update',
 				handler : this.onBundleInstallClick,
 				scope : this
-			}, {
+			}, '-', {
 				text : 'Uninstall',
 				handler : this.onExtensionsClick,
 				scope : this

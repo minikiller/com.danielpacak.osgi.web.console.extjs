@@ -4,6 +4,7 @@ Ext.define('WebConsole.SystemInfoPanel', {
 
 	initComponent : function() {
 		this.systemInfoForm = Ext.create('widget.form', {
+			dockedItems : this._createToolbar(),
 			bodyPadding : '10',
 			padding : '5',
 			region : 'center',
@@ -54,17 +55,17 @@ Ext.define('WebConsole.SystemInfoPanel', {
 
 		Ext.apply(this, {
 			layout : 'border',
-			items : this.systemInfoForm,
-			dockedItems : this.createToolbar()
+			items : this.systemInfoForm
 		});
 
 		this.callParent(arguments);
 	},
 
-	createToolbar : function() {
+	_createToolbar : function() {
 		this.toolbar = Ext.create('widget.toolbar', {
 			items : [ {
 				text : 'Reload',
+				icon : 'css/images/reload.png',
 				handler : this.onReloadClick,
 				scope : this
 			} ]

@@ -22,9 +22,10 @@ Ext.define('WebConsole.BundleTreePanel', {
 		var toolbar = Ext.create('widget.toolbar', {
 			items : [ {
 				text : 'Reload',
+				icon : 'css/images/reload.png',
 				handler : this.onReloadClick,
 				scope : this
-			}, {
+			}, '-', {
 				text : 'Install',
 				handler : this.onBundleInstallClick,
 				scope : this

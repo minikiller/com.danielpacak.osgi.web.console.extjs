@@ -32,6 +32,10 @@ Ext.define('WebConsole.ExtensionsPanel', {
 					root : 'extensions'
 				}
 			},
+			sorters : [ {
+				property : 'name',
+				direction : 'ASC'
+			} ],
 			autoLoad : true
 		});
 

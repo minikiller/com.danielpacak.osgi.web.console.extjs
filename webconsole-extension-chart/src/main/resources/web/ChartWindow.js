@@ -1,4 +1,4 @@
-Ext.define('WebConsole.Extension.HelloWindow',{
+Ext.define('WebConsole.Extension.ChartWindow',{
 	extend : 'Ext.window.Window',
 
 	initComponent : function() {
@@ -6,9 +6,9 @@ Ext.define('WebConsole.Extension.HelloWindow',{
 			width : 400,
 			height : 300,
 			modal : true,
-			title : 'Hello Extension',
+			title : 'Chart Extension',
 			layout : 'fit',
-			html : '<br/><center><strong>Hello! I am a very simple OSGi Web Console extension! Enjoy using me :)</strong></center>',
+			html : '<br/><center><strong>put extjs chart here!</strong></center>',
 			buttons : [ {
 				xtype : 'button',
 				text : 'Close',
