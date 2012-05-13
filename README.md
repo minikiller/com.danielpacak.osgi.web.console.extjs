@@ -11,13 +11,13 @@ to enhance the user experience and keep Web browser support on the broadest poss
 I believe that [Sencha Ext JS 4.1.x][1] is the right choice for the time being. Even if I am wrong, in the worst case this application
 will be a nice example of using this amazing RIA framework.
 
-![OSGi Web Console Screenshot](https://github.com/danielpacak/osgi-enterprise-webconsole/raw/master/README/osgi-web-console-bundles.png)
+![Bundles Tab Screenshot](https://github.com/danielpacak/osgi-enterprise-webconsole/raw/master/README/osgi-web-console-bundles-tab.png)
 
-![OSGi Web Console Screenshot](https://github.com/danielpacak/osgi-enterprise-webconsole/raw/master/README/osgi-web-console-services.png)
+![Services Tab Screenshot](https://github.com/danielpacak/osgi-enterprise-webconsole/raw/master/README/osgi-web-console-services-tab.png)
 
 ## Extensions
 
-![OSGi Web Console Screenshot](https://github.com/danielpacak/osgi-enterprise-webconsole/raw/master/README/osgi-web-console-extensions.png)
+![Extensions Tab Screenshot](https://github.com/danielpacak/osgi-enterprise-webconsole/raw/master/README/osgi-web-console-extensions-tab.png)
 
 ## Requirements
 
