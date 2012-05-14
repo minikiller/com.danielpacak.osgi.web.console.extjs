@@ -2,9 +2,8 @@ package org.danielsoft.webconsole.ui;
 
 import org.danielsoft.webconsole.service.BundleInstallServlet;
 import org.danielsoft.webconsole.service.BundleReadServlet;
-import org.danielsoft.webconsole.service.BundleServlet;
-import org.danielsoft.webconsole.service.BundleTreeServlet;
-import org.danielsoft.webconsole.service.ExtensionServlet;
+import org.danielsoft.webconsole.service.BundlesServlet;
+import org.danielsoft.webconsole.service.ExtensionsServlet;
 import org.danielsoft.webconsole.service.IndexServlet;
 import org.danielsoft.webconsole.service.ServiceReadServlet;
 import org.danielsoft.webconsole.service.ServicesServlet;
@@ -57,18 +56,16 @@ public class Activator implements BundleActivator, ServiceListener {
 			httpService.registerResources("/webconsole", "/web", null);
 			
 			IndexServlet indexServlet = new IndexServlet(bundleContext);
-			BundleServlet bundleServlet = new BundleServlet(bundleContext);
-			BundleTreeServlet bundleTreeServlet = new BundleTreeServlet(bundleContext);
+			BundlesServlet bundleServlet = new BundlesServlet(bundleContext);
 			BundleReadServlet bundleReadServlet = new BundleReadServlet(bundleContext);
 			SystemInfoServlet systemInfoServlet = new SystemInfoServlet();
 			BundleInstallServlet bundleInstallServlet = new BundleInstallServlet(bundleContext);
 			ServicesServlet servicesServlet = new ServicesServlet(bundleContext);
 			ServiceReadServlet serviceReadServlet = new ServiceReadServlet(bundleContext);
-			ExtensionServlet extensionServlet = new ExtensionServlet(bundleContext);
+			ExtensionsServlet extensionServlet = new ExtensionsServlet(bundleContext);
 
 			httpService.registerServlet("/webconsole/index.html", indexServlet, null, null);
 			httpService.registerServlet("/webconsole/service/bundles", bundleServlet, null, null);
-			httpService.registerServlet("/webconsole/service/bundles/tree", bundleTreeServlet, null, null);
 			httpService.registerServlet("/webconsole/service/bundles/read", bundleReadServlet, null, null);
 			httpService.registerServlet("/webconsole/service/bundles/install", bundleInstallServlet, null, null);
 			httpService.registerServlet("/webconsole/service/system", systemInfoServlet, null, null);

@@ -3,48 +3,102 @@ Ext.define('WebConsole.BundlesPanel', {
 	alias : 'widget.bundlespanel',
 
 	initComponent : function() {
-		this.bundleInfoPanel = this.createBundleInfoPanel();
-		this.bundleTree = this.createBundleTreePanel();
+		Ext.define('WebConsole.data.Bundle', {
+			extend : 'Ext.data.Model',
+			fields : [ {
+				name : 'id',
+				type : 'long'
+			}, {
+				name : 'name',
+				type : 'string'
+			}, {
+				name : 'version',
+				type : 'string'
+			}, {
+				name : 'category',
+				type : 'string'
+			}, {
+				name : 'state',
+				type : 'string'
+			} ]
+		});
+		this.bundlesStore = Ext.create('Ext.data.Store', {
+			model : 'WebConsole.data.Bundle',
+			proxy : {
+				type : 'ajax',
+				url : 'service/bundles',
+				reader : {
+					type : 'json',
+					root : 'bundles'
+				}
+			},
+			sorters : [ {
+				property : 'id',
+				direction : 'ASC'
+			} ],
+			autoLoad : true
+		});
+
+		this.bundlesGrid = Ext.create('Ext.grid.Panel', {
+			dockedItems : this._createToolbar(),
+			padding : '5',
+			region : 'center',
+			store : this.bundlesStore,
+			columns : [ {
+				header : 'Id',
+				dataIndex : 'id'
+			}, {
+				header : 'Name',
+				dataIndex : 'name',
+				flex : 1
+			}, {
+				header : 'Version',
+				dataIndex : 'version'
+			}, {
+				header : 'Category',
+				dataIndex : 'category'
+			}, {
+				header : 'State',
+				dataIndex : 'state'
+			}, {
+				xtype : 'actioncolumn',
+				icon : 'css/images/service_test.png',
+				width : 100,
+				align : 'center',
+				handler : this.onTestServiceClick
+			} ]
+		});
+
 
 		Ext.apply(this, {
 			layout : 'border',
 			items : [
-				this.bundleTree,
-				this.bundleInfoPanel
+				this.bundlesGrid
 			]
 		});
 
 		this.callParent(arguments);
 	},
-
-	createBundleTreePanel : function() {
-		var bundleTree = Ext.create('widget.bundletreepanel', {
-			region : 'west',
-			split : true,
-			padding : '5 0 5 5',
-			width : 350,
-			listeners : {
-				itemclick : this.onBundleClick,
+	
+	_createToolbar : function() {
+		var toolbar = Ext.create('widget.toolbar', {
+			items : [ {
+				text : 'Reload',
+				icon : 'css/images/reload.png',
+				handler : this.onReloadClick,
 				scope : this
-			}
+			}, '-', {
+				text : 'Install',
+				handler : this.onBundleInstallClick,
+				scope : this
+			} ]
 		});
 
-		return bundleTree;
+		return toolbar;
 	},
-
-	createBundleInfoPanel : function() {
-		var bundleInfoPanel = Ext.create('widget.bundleinfopanel', {
-			region : 'center',
-			padding : '5 5 5 0'
-		});
-		return bundleInfoPanel;
-	},
-
-	onBundleClick : function(view, record, item, index, e, eOpts) {
-		var bundleId = record.get('id');
-		if (bundleId != null) {
-			this.readBundle(bundleId);
-		}
+	
+	onReloadClick: function() {
+		this.bundlesStore.load();
 	},
 
 	readBundle : function(bundleId) {
@@ -63,5 +117,20 @@ Ext.define('WebConsole.BundlesPanel', {
 		var jsonData = Ext.decode(response.responseText);
 		this.bundleInfoPanel.setBundle(jsonData);
 	},
+	
+	onBundleInstallClick : function() {
+		var win = Ext.create('widget.bundleinstallwindow', {
+			listeners : {
+				scope : this,
+				bundleinstalled : this.onBundleInstalled
+			}
+		});
+
+		win.show();
+	},
+
+	onBundleInstalled : function(win) {
+		this.bundlesStore.load();
+	}
 
 });

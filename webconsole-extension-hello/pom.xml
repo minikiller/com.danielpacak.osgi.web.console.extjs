@@ -43,6 +43,7 @@
 						<Bundle-Activator>org.danielsoft.webconsole.extension.hello.Activator</Bundle-Activator>
 						<Service-Component>OSGI-INF/weather.xml</Service-Component>
 						<WebConsole-Extension>OSGI-INF/webconsole-plugin.xml</WebConsole-Extension>
+						<Bundle-Category>Web Console Extension</Bundle-Category>
 					</instructions>
 				</configuration>
 			</plugin>

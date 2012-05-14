@@ -19,11 +19,11 @@ import org.osgi.framework.ServiceReference;
 
 // lists available extension to web console
 @SuppressWarnings("serial")
-public class ExtensionServlet extends HttpServlet {
+public class ExtensionsServlet extends HttpServlet {
 
 	private BundleContext bundleContext;
 
-	public ExtensionServlet(BundleContext bundleContext) {
+	public ExtensionsServlet(BundleContext bundleContext) {
 		this.bundleContext = bundleContext;
 	}
 

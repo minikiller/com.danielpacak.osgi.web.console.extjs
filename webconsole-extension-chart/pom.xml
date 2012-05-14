@@ -39,6 +39,7 @@
 				<configuration>
 					<instructions>
 						<Bundle-Activator>org.danielsoft.webconsole.extension.chart.Activator</Bundle-Activator>
+						<Bundle-Category>Web Console Extension</Bundle-Category>
 					</instructions>
 				</configuration>
 			</plugin>
