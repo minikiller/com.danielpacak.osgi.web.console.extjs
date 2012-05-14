@@ -20,6 +20,7 @@ public class Activator implements BundleActivator, ServiceListener {
 
 	private BundleContext bundleContext;
 	private HttpService httpService;
+	private Extender extender;
 
 	public void start(BundleContext bundleContext) throws Exception {
 		this.bundleContext = bundleContext;
@@ -31,7 +32,9 @@ public class Activator implements BundleActivator, ServiceListener {
 		} else {
 			bundleContext.addServiceListener(this, httpServiceFilter);
 		}
-
+		
+		this.extender = new Extender(null);
+		bundleContext.addBundleListener(extender);
 	}
 
 	public void stop(BundleContext bundleContext) throws Exception {
@@ -39,14 +42,15 @@ public class Activator implements BundleActivator, ServiceListener {
 			httpService.unregister("/webconsole");
 		}
 		bundleContext.removeServiceListener(this);
+		bundleContext.removeBundleListener(extender);
 	}
-	
+
 	public void serviceChanged(ServiceEvent event) {
 		if (event.getType() == ServiceEvent.REGISTERED) {
 			registerServletsAndResources(event.getServiceReference());
 		}
 	}
-	
+
 	void registerServletsAndResources(ServiceReference httpServiceRef) {
 		try {
 			httpService = (HttpService) bundleContext.getService(httpServiceRef);
