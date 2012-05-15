@@ -62,10 +62,25 @@ Ext.define('WebConsole.BundlesPanel', {
 				dataIndex : 'state'
 			}, {
 				xtype : 'actioncolumn',
-				icon : 'css/images/service_test.png',
 				width : 100,
 				align : 'center',
-				handler : this.onTestServiceClick
+				items : [{
+					icon : 'css/images/service_test.png',
+					tooltip : 'Stop',
+					handler : this.onStopClick,
+				}, {
+					icon : 'css/images/service_test.png',
+					tooltip : 'Refresh package imports',
+					handler : this.onRefreshPackageImportsClick
+				}, {
+					icon : 'css/images/service_test.png',
+					tooltip : 'Update',
+					handler : this.onUpdateClick
+				}, {
+					icon : 'css/images/service_test.png',
+					tooltip : 'Uninstall',
+					handler : this.onUninstallClick
+				}]
 			} ]
 		});
 
@@ -99,6 +114,22 @@ Ext.define('WebConsole.BundlesPanel', {
 	
 	onReloadClick: function() {
 		this.bundlesStore.load();
+	},
+	
+	onStopClick : function() {
+		alert('stopping bundle!');
+	},
+	
+	onUninstallClick : function() {
+		alert('uninstall...');
+	},
+	
+	onUpdateClick : function() {
+		alert('Updating...');
+	},
+	
+	onRefreshPackageImportsClick : function() {
+		alert('on refresh pkg imports..');
 	},
 
 	readBundle : function(bundleId) {
