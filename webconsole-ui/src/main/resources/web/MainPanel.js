@@ -18,6 +18,10 @@ Ext.define('WebConsole.MainPanel', {
 				iconCls : 'tabs',
 				xtype : 'systeminfopanel'
 			}, {
+				title : 'Groovy Console',
+				iconCls : 'tabs',
+				xtype : 'groovyconsolepanel'
+			}, {
 				title : 'Extensions',
 				iconCls : 'tabs',
 				xtype : 'extensionspanel'
