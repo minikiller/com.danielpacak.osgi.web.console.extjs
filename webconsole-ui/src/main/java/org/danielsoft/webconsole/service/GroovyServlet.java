@@ -5,10 +5,6 @@ import groovy.lang.GroovyShell;
 
 import java.io.IOException;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineFactory;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +24,6 @@ public class GroovyServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		System.out.println(req.getParameter("script"));
 		resp.setContentType("application/json");
 		resp.setCharacterEncoding("UTF-8");
 		
