@@ -89,6 +89,11 @@
 			<artifactId>org.apache.felix.configadmin</artifactId>
 			<version>1.2.8</version>
 		</dependency>
+		<!-- Groovy -->
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+		</dependency>
 	</dependencies>
 
 </project>

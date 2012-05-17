@@ -3,10 +3,21 @@ Ext.define('WebConsole.GroovyConsolePanel', {
 	alias : 'widget.groovyconsolepanel',
 
 	initComponent : function() {
+		this.scriptTextArea = Ext.create('Ext.form.field.TextArea', {
+			name : 'groovyScript',
+			region : 'center',
+			padding : '5'
+		});
+		this.resultTextArea = Ext.create('Ext.form.field.TextArea', {
+			name : 'executionResult',
+			region : 'south',
+			padding : '0 5 5 5'
+		});
+
 		Ext.apply(this, {
 			layout : 'border',
-			dockedItems : this._createToolbar
-			// items : this.extensionsGrid
+			dockedItems : this._createToolbar(),
+			items : [ this.scriptTextArea, this.resultTextArea ]
 		});
 
 		this.callParent(arguments);
@@ -16,7 +27,6 @@ Ext.define('WebConsole.GroovyConsolePanel', {
 		var toolbar = Ext.create('widget.toolbar', {
 			items : [ {
 				text : 'Run',
-				tooltip : 'Run Groovy script',
 				icon : 'css/images/service_test.png',
 				handler : this.onRunGroovyClick,
 				scope : this
@@ -27,7 +37,20 @@ Ext.define('WebConsole.GroovyConsolePanel', {
 	},
 
 	onRunGroovyClick : function() {
-		alert("running groovy script!")
+		var script = this.scriptTextArea.getValue();
+		Ext.Ajax.request({
+			url : 'service/groovy',
+			params : {
+				script : script
+			},
+			success : this.onRunGroovySuccess,
+			failure : WebConsole.onAjaxFailure,
+			scope : this
+		});
+	},
+	
+	onRunGroovySuccess : function(response) {
+		alert('script executed: ' + response.responseText);
 	}
 
 });

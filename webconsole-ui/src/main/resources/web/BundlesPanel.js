@@ -56,7 +56,8 @@ Ext.define('WebConsole.BundlesPanel', {
 				dataIndex : 'version'
 			}, {
 				header : 'Category',
-				dataIndex : 'category'
+				dataIndex : 'category',
+				width : 200
 			}, {
 				header : 'State',
 				dataIndex : 'state'

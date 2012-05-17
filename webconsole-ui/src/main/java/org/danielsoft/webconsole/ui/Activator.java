@@ -4,6 +4,7 @@ import org.danielsoft.webconsole.service.BundleInstallServlet;
 import org.danielsoft.webconsole.service.BundleReadServlet;
 import org.danielsoft.webconsole.service.BundlesServlet;
 import org.danielsoft.webconsole.service.ExtensionsServlet;
+import org.danielsoft.webconsole.service.GroovyServlet;
 import org.danielsoft.webconsole.service.IndexServlet;
 import org.danielsoft.webconsole.service.ServiceReadServlet;
 import org.danielsoft.webconsole.service.ServicesServlet;
@@ -62,6 +63,7 @@ public class Activator implements BundleActivator, ServiceListener {
 			BundleInstallServlet bundleInstallServlet = new BundleInstallServlet(bundleContext);
 			ServicesServlet servicesServlet = new ServicesServlet(bundleContext);
 			ServiceReadServlet serviceReadServlet = new ServiceReadServlet(bundleContext);
+			GroovyServlet groovyServlet = new GroovyServlet(bundleContext);
 			ExtensionsServlet extensionServlet = new ExtensionsServlet(bundleContext);
 
 			httpService.registerServlet("/webconsole/index.html", indexServlet, null, null);
@@ -71,6 +73,7 @@ public class Activator implements BundleActivator, ServiceListener {
 			httpService.registerServlet("/webconsole/service/system", systemInfoServlet, null, null);
 			httpService.registerServlet("/webconsole/service/services", servicesServlet, null, null);
 			httpService.registerServlet("/webconsole/service/services/read", serviceReadServlet, null, null);
+			httpService.registerServlet("/webconsole/service/groovy", groovyServlet, null, null);
 			httpService.registerServlet("/webconsole/service/extensions", extensionServlet, null, null);
 
 		} catch (Exception e) {
