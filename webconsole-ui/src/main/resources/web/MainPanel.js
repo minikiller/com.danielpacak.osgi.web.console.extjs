@@ -7,23 +7,23 @@ Ext.define('WebConsole.MainPanel', {
 		Ext.apply(this, {
 			items : [ {
 				title : 'Bundles',
-				iconCls : 'tabs',
+				iconCls : 'tabIcon',
 				xtype : 'bundlespanel'
 			}, {
 				title : 'Services',
-				iconCls : 'tabs',
+				iconCls : 'tabIcon',
 				xtype : 'servicespanel'
 			}, {
 				title : 'System Information',
-				iconCls : 'tabs',
+				iconCls : 'tabIcon',
 				xtype : 'systeminfopanel'
 			}, {
 				title : 'Groovy Console',
-				iconCls : 'tabs',
+				iconCls : 'tabIcon',
 				xtype : 'groovyconsolepanel'
 			}, {
 				title : 'Extensions',
-				iconCls : 'tabs',
+				iconCls : 'tabIcon',
 				xtype : 'extensionspanel'
 			} ]
 		});
