@@ -73,7 +73,7 @@ Ext.define('WebConsole.ServicesPanel', {
 	                '<tpl if="properties.length &gt; 0">',
 	                	'<tr><td style="vertical-align: top; white-space: nowrap;">Properties&nbsp;</td>',
 	                	'<td><tpl for="properties">',
-	                		'{key}:&nbsp;{value}<br/>',
+	                		'<i>{key}:</i>&nbsp;{value}<br/>',
 	                	'</tpl></td></tr>',
 	                '</tpl>',
 	                '<tpl if="usingBundles.length &gt; 0">',

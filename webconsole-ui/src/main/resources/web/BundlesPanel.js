@@ -111,7 +111,7 @@ Ext.define('WebConsole.BundlesPanel', {
 	                '<tr><td style="vertical-align: top; white-space: nowrap;">Importing Bundles&nbsp;</td><td>TODO</td></tr>',
 	                '<tr><td style="vertical-align: top; white-space: nowrap;">Manifest Headers&nbsp;</td>',
 	                '<td><tpl for="manifestHeaders">',
-	                '{key}:&nbsp;{value}<br/>',
+	                '<i>{key}:</i>&nbsp;{value}<br/>',
 	                '</tpl></td></tr>',
 	                '</table>'
 	            ]
