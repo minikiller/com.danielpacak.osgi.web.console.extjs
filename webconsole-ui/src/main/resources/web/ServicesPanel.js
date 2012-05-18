@@ -62,10 +62,18 @@ Ext.define('WebConsole.ServicesPanel', {
 				width : 50,
 				align : 'center',
 				handler : this.onTestServiceClick
-			} ]
+			} ],
+			plugins: [{
+	            ptype: 'rowexpander',
+	            rowBodyTpl : [
+	                '<p>Properties: TODO</p>',
+	                '<p>Using Bundle(s): TODO</p>',
+	                '<p>Types: <tpl for="types">{.}<br/></tpl></p>'
+	            ]
+	        }]
 		});
 
-		this.servicesGrid.getView().on('render', function(view) {
+		/*this.servicesGrid.getView().on('render', function(view) {
 			view.tip = Ext.create('Ext.tip.ToolTip', {
 				target : view.el,
 				delegate : view.itemSelector,
@@ -82,7 +90,7 @@ Ext.define('WebConsole.ServicesPanel', {
 					}
 				}
 			});
-		});
+		});*/
 
 		Ext.apply(this, {
 			layout : 'border',

@@ -20,6 +20,9 @@ Ext.define('WebConsole.BundlesPanel', {
 			}, {
 				name : 'state',
 				type : 'string'
+			}, {
+				name : 'manifestHeaders',
+				type : 'object'
 			} ]
 		});
 		this.bundlesStore = Ext.create('Ext.data.Store', {
@@ -68,7 +71,7 @@ Ext.define('WebConsole.BundlesPanel', {
 				items : [{
 					icon : 'css/images/service_test.png',
 					tooltip : 'Stop',
-					handler : this.onStopClick,
+					handler : this.onStopClick
 				}, {
 					icon : 'css/images/service_test.png',
 					tooltip : 'Refresh package imports',
@@ -82,7 +85,25 @@ Ext.define('WebConsole.BundlesPanel', {
 					tooltip : 'Uninstall',
 					handler : this.onUninstallClick
 				}]
-			} ]
+			} ],
+			plugins : [{
+	            ptype : 'rowexpander',
+	            rowBodyTpl : [
+	                /*
+	                '<p>Bundle Location: TODO</p>',
+	                '<p>Last Modification: TODO</p>',
+	                '<p>Description: TODO</p>',
+	                '<p>Exported Packages: TODO</p>',
+	                '<p>Imported Packages: TODO</p>',
+	                '<p>Importing Bundles: TODO</p>',*/
+	                '<p><table>',
+	                '<tr><td style="vertical-align: top;">Manifest Headers:</td>',
+	                '<td><tpl for="manifestHeaders">',
+	                '{key}: {value}<br/>',
+	                '</tpl></td></tr>',
+	                '</table></p>'
+	            ]
+	        }]
 		});
 
 

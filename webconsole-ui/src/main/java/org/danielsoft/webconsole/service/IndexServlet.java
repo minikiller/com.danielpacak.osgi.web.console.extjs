@@ -65,6 +65,8 @@ public class IndexServlet extends HttpServlet {
 		
 		sb.append("<script type='text/javascript'>\n");
 		sb.append("Ext.Loader.setConfig({enabled : true});\n");
+		sb.append("Ext.Loader.setPath('Ext.ux', '../extjs/4.1.0/ux');\n");
+		sb.append("Ext.require(['Ext.grid.*', 'Ext.data.*', 'Ext.ux.RowExpander'])\n");
 		sb.append("Ext.onReady(function() {\n");
 		sb.append("  Ext.QuickTips.init();\n");
 		sb.append("  var app = Ext.create('WebConsole');\n");
