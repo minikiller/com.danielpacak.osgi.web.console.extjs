@@ -15,6 +15,8 @@ will be a nice example of using this amazing RIA framework.
 
 ![Services Tab Screenshot](https://github.com/danielpacak/osgi-enterprise-webconsole/raw/master/README/osgi-web-console-services-tab.png)
 
+![Groovy Console Tab Screenshot](https://github.com/danielpacak/osgi-enterprise-webconsole/raw/master/README/osgi-web-console-groovy-console-tab.png)
+
 ## Extensions
 
 ![Extensions Tab Screenshot](https://github.com/danielpacak/osgi-enterprise-webconsole/raw/master/README/osgi-web-console-extensions-tab.png)
