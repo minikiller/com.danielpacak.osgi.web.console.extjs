@@ -112,9 +112,11 @@ Ext.define('WebConsole.BundlesPanel', {
 		                '<tr>',
 		                	'<td class="x-grid-cell-property">Manifest Headers&nbsp;</td>',
 		                	'<td>',
+		                		'<table>',
 		                		'<tpl for="manifestHeaders">',
-		                			'{key}:&nbsp;{value}<br/>',
+		                			'<tr><td class="x-grid-cell-property">{key}</td><td>{value}</td></tr>',
 		                		'</tpl>',
+		                		'</table>',
 		                	'</td>',
 		                '</tr>',
 	                '</table>'
