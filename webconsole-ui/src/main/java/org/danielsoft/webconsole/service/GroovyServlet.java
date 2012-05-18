@@ -3,7 +3,9 @@ package org.danielsoft.webconsole.service;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,18 +29,34 @@ public class GroovyServlet extends HttpServlet {
 		resp.setContentType("application/json");
 		resp.setCharacterEncoding("UTF-8");
 		
-		Object result = mmm(req.getParameter("script"));
-		
+		JsonStatus status = new JsonStatus(evaluateScript(req.getParameter("script")));
 		ObjectMapper om = new ObjectMapper();
-		om.writeValue(resp.getWriter(), result);
+		om.writeValue(resp.getWriter(), status);
 	}
 	
-	Object mmm(String script) {
-		Binding binding = new Binding();
-		binding.setVariable("bundleContext", this.bundleContext);
-		
-		GroovyShell shell = new GroovyShell(binding);
-		return shell.evaluate(script);
+	class JsonStatus {
+		private String consoleOutput;
+		public JsonStatus(String consoleOutput) {
+			this.consoleOutput = consoleOutput;
+		}
+		public String getConsoleOutput() {
+			return consoleOutput;
+		}
+	}
+
+	String evaluateScript(String scriptText) {
+		PrintStream out = System.out;
+		try {
+			Binding binding = new Binding();
+			binding.setVariable("bundleContext", this.bundleContext);
+			ByteArrayOutputStream consoleOutput = new ByteArrayOutputStream();
+			GroovyShell shell = new GroovyShell(binding);
+			System.setOut(new PrintStream(consoleOutput));
+			shell.evaluate(scriptText);
+			return new String(consoleOutput.toByteArray());
+		} finally {
+			System.setOut(out);
+		}
 	}
 
 }

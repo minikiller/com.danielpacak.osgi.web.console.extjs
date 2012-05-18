@@ -50,7 +50,9 @@ Ext.define('WebConsole.GroovyConsolePanel', {
 	},
 	
 	onRunGroovySuccess : function(response) {
-		alert('script executed: ' + response.responseText);
+		//alert('script executed: ' + response.responseText);
+		var jsonResponse = Ext.decode(response.responseText);
+		this.resultTextArea.setValue(jsonResponse.consoleOutput);
 	}
 
 });
