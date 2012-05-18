@@ -20,6 +20,9 @@ Ext.define('WebConsole.ServicesPanel', {
 			}, {
 				name : 'usingBundles',
 				type : 'object'
+			}, {
+				name : 'publicMethods',
+				type : 'object'
 			} ]
 		});
 		this.serviceStore = Ext.create('Ext.data.Store', {
@@ -66,9 +69,20 @@ Ext.define('WebConsole.ServicesPanel', {
 			plugins: [{
 	            ptype: 'rowexpander',
 	            rowBodyTpl : [
-	                '<p>Properties: TODO</p>',
-	                '<p>Using Bundle(s): TODO</p>',
-	                '<p>Types: <tpl for="types">{.}<br/></tpl></p>'
+	                '<table>',
+	                '<tpl if="properties.length &gt; 0">',
+	                	'<tr><td style="vertical-align: top; white-space: nowrap;">Properties&nbsp;</td>',
+	                	'<td><tpl for="properties">',
+	                		'{key}:&nbsp;{value}<br/>',
+	                	'</tpl></td></tr>',
+	                '</tpl>',
+	                '<tpl if="usingBundles.length &gt; 0">',
+	                	'<tr><td style="vertical-align: top; white-space: nowrap;">Using Bundle(s)&nbsp;</td>',
+	                	'<td><tpl for="usingBundles">',
+	                		'{symbolicName} ({id})<br/>',
+	                	'</tpl></td></tr>',
+	                '</tpl>',
+	                '</table>'
 	            ]
 	        }]
 		});

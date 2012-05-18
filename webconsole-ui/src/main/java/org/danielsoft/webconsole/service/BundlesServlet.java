@@ -2,6 +2,7 @@ package org.danielsoft.webconsole.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -62,11 +63,18 @@ public class BundlesServlet extends HttpServlet {
 		public long getId() {
 			return bundle.getBundleId();
 		}
+		public String getSymbolicName() {
+			return bundle.getSymbolicName();
+		}
+		@Deprecated
 		public String getName() {
 			Dictionary manifestHeaders = bundle.getHeaders();
 			return String.format("%s (%s)",
 					manifestHeaders.get(Constants.BUNDLE_NAME),
 					bundle.getSymbolicName());
+		}
+		public String getDescription() {
+			return (String) bundle.getHeaders().get(Constants.BUNDLE_DESCRIPTION);
 		}
 		public String getVersion() {
 			return bundle.getVersion().toString();
@@ -74,6 +82,12 @@ public class BundlesServlet extends HttpServlet {
 		public String getCategory() {
 			Dictionary manifestHeaders = bundle.getHeaders();
 			return (String) manifestHeaders.get(Constants.BUNDLE_CATEGORY);
+		}
+		public String getLocation() {
+			return bundle.getLocation();
+		}
+		public Date getLastModified() {
+			return new Date(bundle.getLastModified());
 		}
 		public List<JsonHeader> getManifestHeaders() {
 			List<JsonHeader> headers = new ArrayList<JsonHeader>();

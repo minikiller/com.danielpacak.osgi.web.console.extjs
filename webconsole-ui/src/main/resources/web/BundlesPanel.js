@@ -9,7 +9,13 @@ Ext.define('WebConsole.BundlesPanel', {
 				name : 'id',
 				type : 'long'
 			}, {
+				name : 'symbolicName',
+				type : 'string'
+			}, {
 				name : 'name',
+				type : 'string'
+			}, {
+				name : 'description',
 				type : 'string'
 			}, {
 				name : 'version',
@@ -17,6 +23,11 @@ Ext.define('WebConsole.BundlesPanel', {
 			}, {
 				name : 'category',
 				type : 'string'
+			}, {
+				name : 'location',
+				type : 'string'
+			}, {
+				name : 'lastModified'
 			}, {
 				name : 'state',
 				type : 'string'
@@ -89,19 +100,20 @@ Ext.define('WebConsole.BundlesPanel', {
 			plugins : [{
 	            ptype : 'rowexpander',
 	            rowBodyTpl : [
-	                /*
-	                '<p>Bundle Location: TODO</p>',
-	                '<p>Last Modification: TODO</p>',
-	                '<p>Description: TODO</p>',
-	                '<p>Exported Packages: TODO</p>',
-	                '<p>Imported Packages: TODO</p>',
-	                '<p>Importing Bundles: TODO</p>',*/
-	                '<p><table>',
-	                '<tr><td style="vertical-align: top;">Manifest Headers:</td>',
+	                '<table>',
+	                '<tr><td style="vertical-align: top; white-space: nowrap;">Symbolic Name&nbsp;</td><td>{symbolicName}</td></tr>',
+	                '<tr><td style="vertical-align: top; white-space: nowrap;">Version&nbsp;</td><td>{version}</td></tr>',
+	                '<tr><td style="vertical-align: top; white-space: nowrap;">Bundle Location&nbsp;</td><td>{location}</td></tr>',
+	                '<tr><td style="vertical-align: top; white-space: nowrap;">Last Modified&nbsp;</td><td>{lastModified}</td></tr>',
+	                '<tr><td style="vertical-align: top; white-space: nowrap;">Description&nbsp;</td><td>{description}</td></tr>',
+	                '<tr><td style="vertical-align: top; white-space: nowrap;">Exported Packages&nbsp;</td><td>TODO</td></tr>',
+	                '<tr><td style="vertical-align: top; white-space: nowrap;">Imported Packages&nbsp;</td><td>TODO</td></tr>',
+	                '<tr><td style="vertical-align: top; white-space: nowrap;">Importing Bundles&nbsp;</td><td>TODO</td></tr>',
+	                '<tr><td style="vertical-align: top; white-space: nowrap;">Manifest Headers&nbsp;</td>',
 	                '<td><tpl for="manifestHeaders">',
-	                '{key}: {value}<br/>',
+	                '{key}:&nbsp;{value}<br/>',
 	                '</tpl></td></tr>',
-	                '</table></p>'
+	                '</table>'
 	            ]
 	        }]
 		});
