@@ -80,19 +80,19 @@ Ext.define('WebConsole.BundlesPanel', {
 				width : 100,
 				align : 'center',
 				items : [{
-					icon : 'css/images/service_test.png',
+					icon : 'css/images/bundle_stop.png',
 					tooltip : 'Stop',
 					handler : this.onStopClick
 				}, {
-					icon : 'css/images/service_test.png',
+					icon : 'css/images/bundle_refresh.png',
 					tooltip : 'Refresh package imports',
 					handler : this.onRefreshPackageImportsClick
 				}, {
-					icon : 'css/images/service_test.png',
+					icon : 'css/images/bundle_update.png',
 					tooltip : 'Update',
 					handler : this.onUpdateClick
 				}, {
-					icon : 'css/images/service_test.png',
+					icon : 'css/images/bundle_delete.png',
 					tooltip : 'Uninstall',
 					handler : this.onUninstallClick
 				}]

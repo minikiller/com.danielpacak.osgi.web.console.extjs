@@ -32,6 +32,7 @@
 				<configuration>
 					<instructions>
 						<Bundle-Activator>org.danielsoft.webconsole.extjswrapper.Activator</Bundle-Activator>
+						<Bundle-Category>Web Console</Bundle-Category>
 					</instructions>
 				</configuration>
 			</plugin>

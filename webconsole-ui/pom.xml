@@ -61,6 +61,7 @@
 				<configuration>
 					<instructions>
 						<Bundle-Activator>org.danielsoft.webconsole.ui.Activator</Bundle-Activator>
+						<Bundle-Category>Web Console</Bundle-Category>
 					</instructions>
 				</configuration>
 			</plugin>

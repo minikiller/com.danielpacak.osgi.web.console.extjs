@@ -59,13 +59,13 @@ Ext.define('WebConsole.ServicesPanel', {
 				width : 300,
 				renderer : this._bundleRenderer,
 				dataIndex : 'bundle'
-			}, {
+			}/*, {
 				xtype : 'actioncolumn',
 				icon : 'css/images/service_test.png',
 				width : 50,
 				align : 'center',
 				handler : this.onTestServiceClick
-			} ],
+			}*/ ],
 			plugins: [{
 	            ptype: 'rowexpander',
 	            rowBodyTpl : [
