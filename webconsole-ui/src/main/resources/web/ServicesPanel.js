@@ -66,7 +66,7 @@ Ext.define('WebConsole.ServicesPanel', {
 				align : 'center',
 				handler : this.onTestServiceClick
 			}*/ ],
-			plugins: [{
+			plugins: [ {
 	            ptype: 'rowexpander',
 	            rowBodyTpl : [
    	                '<table style="margin-left: 30px; margin-top: 10px; margin-bottom: 4px;">',

@@ -51,9 +51,19 @@ Ext.define('WebConsole.LogViewerPanel', {
 				header : 'Message',
 				dataIndex : 'message',
 				flex : 1
-			}, {
-				header : 'Exception',
-				dataIndex : 'exception.message'
+			} ],
+			plugins: [ {
+				ptype: 'rowexpander',
+				rowBodyTpl : [
+					'<tpl if="exception != null">',
+						'<table style="margin-left: 30px; margin-top: 10px; margin-bottom: 4px;">',
+						'<tr><td colspan="2">{exception.message}</td></tr>',
+						'<tpl for="exception.stackTrace">',
+							'<tr><td>&nbsp;&nbsp;</td><td>at&nbsp;{className}.{methodName}({fileName}:{lineNumber})</td></tr>',
+						'</tpl>',
+						'</table>',
+					'</tpl>'
+				]
 			} ]
 		});
 
