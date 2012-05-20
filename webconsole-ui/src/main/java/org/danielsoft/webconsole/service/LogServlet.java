@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -63,8 +64,8 @@ public class LogServlet extends HttpServlet {
 			this.logEntry = logEntry;
 		}
 
-		public long getTime() {
-			return logEntry.getTime();
+		public Date getTime() {
+			return new Date(logEntry.getTime());
 		}
 
 		public String getMessage() {

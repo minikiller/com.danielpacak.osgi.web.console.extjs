@@ -43,7 +43,9 @@ Ext.define('WebConsole.LogViewerPanel', {
 			store : this.logStore,
 			columns : [ {
 				header : 'Time',
-				dataIndex : 'time'
+				dataIndex : 'time',
+				renderer : this._dateRendered,
+				width : 150
 			}, {
 				header : 'Level',
 				dataIndex : 'level'
@@ -86,6 +88,10 @@ Ext.define('WebConsole.LogViewerPanel', {
 		});
 
 		return this.toolbar;
+	},
+	
+	_dateRendered : function(jsonLogEntry, metaData) {
+		return Ext.util.Format.date(new Date(jsonLogEntry), 'd-m-Y h:i:s');
 	},
 
 	onReloadClick : function() {
