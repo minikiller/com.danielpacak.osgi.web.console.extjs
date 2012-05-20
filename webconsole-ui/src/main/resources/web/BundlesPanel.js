@@ -40,6 +40,9 @@ Ext.define('WebConsole.BundlesPanel', {
 			}, {
 				name : 'importedPackages',
 				type : 'object'
+			}, {
+				name : 'importingBundles',
+				type : 'object'
 			} ]
 		});
 		this.bundlesStore = Ext.create('Ext.data.Store', {
@@ -136,7 +139,14 @@ Ext.define('WebConsole.BundlesPanel', {
                 				'</table>',
                 			'</td>',
                 		'</tr>',
-	                	'<tr><td class="x-grid-cell-property">Importing Bundles&nbsp;</td><td>TODO</td></tr>',
+	                	'<tr>',
+	                		'<td class="x-grid-cell-property">Importing Bundles&nbsp;</td>',
+	                		'<td>',
+	                		'<tpl for="importingBundles">',
+	                			'{symbolicName}&nbsp;({id})<br/>',
+	                		'</tpl>',
+	                		'</td>',
+	                	'</tr>',
 		                '<tr>',
 		                	'<td class="x-grid-cell-property">Manifest Headers&nbsp;</td>',
 		                	'<td>',

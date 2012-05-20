@@ -54,20 +54,20 @@ public class BundlesServlet extends HttpServlet {
 		JsonBundles(Bundle[] bundles) {
 			this.bundles = bundles;
 		}
-		public List<JsonBundle> getBundles() {
-			List<JsonBundle> jsonBundles = new ArrayList<JsonBundle>();
+		public List<JsonBundleDetails> getBundles() {
+			List<JsonBundleDetails> jsonBundles = new ArrayList<JsonBundleDetails>();
 			if (bundles != null) {
 				for (Bundle bundle : bundles) {
-					jsonBundles.add(new JsonBundle(bundle));
+					jsonBundles.add(new JsonBundleDetails(bundle));
 				}
 			}
 			return jsonBundles;
 		}
 	}
 	
-	class JsonBundle {
+	class JsonBundleDetails {
 		Bundle bundle;
-		JsonBundle(Bundle bundle) {
+		JsonBundleDetails(Bundle bundle) {
 			this.bundle = bundle;
 		}
 		public long getId() {
@@ -129,7 +129,7 @@ public class BundlesServlet extends HttpServlet {
 		public List<JsonPackage> getImportedPackages() {
 			PackageAdmin packageAdmin = getPackageAdmin();
 			if (packageAdmin != null) {
-				ExportedPackage[] exportedPackages = packageAdmin.getExportedPackages((Bundle)null);
+				ExportedPackage[] exportedPackages = packageAdmin.getExportedPackages((Bundle) null);
 				if (exportedPackages != null) {
 					List<JsonPackage> jsonPackages = new ArrayList<JsonPackage>();
 					for (ExportedPackage ep : exportedPackages) {
@@ -144,6 +144,25 @@ public class BundlesServlet extends HttpServlet {
 				} else {
 					return Collections.emptyList();
 				}
+			} else {
+				// TODO CHECK IF IS IT A GOOD INDICATION THAT THE PACKAGEADMIN SERVICE IS NOT AVAILABLE?
+				return null;
+			}
+		}
+		public List<JsonBundle> getImportingBundles() {
+			PackageAdmin packageAdmin = getPackageAdmin();
+			if (packageAdmin != null) {
+				ExportedPackage[] exportedPackages = packageAdmin.getExportedPackages(bundle);
+				List<JsonBundle> jsonBundles = new ArrayList<JsonBundle>();
+				if (exportedPackages != null) {
+					for (ExportedPackage ep : exportedPackages) {
+						Bundle[] importingBundles = ep.getImportingBundles();
+						for (Bundle b : importingBundles) {
+							jsonBundles.add(new JsonBundle(b));
+						}
+					}
+				}
+				return jsonBundles;
 			} else {
 				// TODO CHECK IF IS IT A GOOD INDICATION THAT THE PACKAGEADMIN SERVICE IS NOT AVAILABLE?
 				return null;
@@ -211,17 +230,18 @@ public class BundlesServlet extends HttpServlet {
 			return new JsonBundle(exportingBundle);
 		}
 		
-		class JsonBundle {
-			Bundle bundle;
-			JsonBundle(Bundle bundle) {
-				this.bundle = bundle;
-			}
-			public String getSymbolicName() {
-				return bundle.getSymbolicName();
-			}
-			public long getId() {
-				return bundle.getBundleId(); 
-			}
+	}
+
+	class JsonBundle {
+		Bundle bundle;
+		JsonBundle(Bundle bundle) {
+			this.bundle = bundle;
+		}
+		public String getSymbolicName() {
+			return bundle.getSymbolicName();
+		}
+		public long getId() {
+			return bundle.getBundleId(); 
 		}
 	}
 
