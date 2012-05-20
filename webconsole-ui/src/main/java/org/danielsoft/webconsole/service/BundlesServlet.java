@@ -2,11 +2,16 @@ package org.danielsoft.webconsole.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Dictionary;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -99,7 +104,7 @@ public class BundlesServlet extends HttpServlet {
 		public Date getLastModified() {
 			return new Date(bundle.getLastModified());
 		}
-		public List<JsonHeader> getManifestHeaders() {
+		public Collection<JsonHeader> getManifestHeaders() {
 			List<JsonHeader> headers = new ArrayList<JsonHeader>();
 			Enumeration<String> keys = bundle.getHeaders().keys();
 			while (keys.hasMoreElements()) {
@@ -108,7 +113,7 @@ public class BundlesServlet extends HttpServlet {
 			}
 			return headers;
 		}
-		public List<JsonPackage> getExportedPackages() {
+		public Collection<JsonPackage> getExportedPackages() {
 			PackageAdmin packageAdmin = getPackageAdmin();
 			if (packageAdmin != null) {
 				ExportedPackage[] exportedPackages = packageAdmin.getExportedPackages(bundle);
@@ -126,7 +131,7 @@ public class BundlesServlet extends HttpServlet {
 				return null;
 			}
 		}
-		public List<JsonPackage> getImportedPackages() {
+		public Collection<JsonPackage> getImportedPackages() {
 			PackageAdmin packageAdmin = getPackageAdmin();
 			if (packageAdmin != null) {
 				ExportedPackage[] exportedPackages = packageAdmin.getExportedPackages((Bundle) null);
@@ -149,20 +154,22 @@ public class BundlesServlet extends HttpServlet {
 				return null;
 			}
 		}
-		public List<JsonBundle> getImportingBundles() {
+		public Collection<JsonBundle> getImportingBundles() {
 			PackageAdmin packageAdmin = getPackageAdmin();
 			if (packageAdmin != null) {
 				ExportedPackage[] exportedPackages = packageAdmin.getExportedPackages(bundle);
-				List<JsonBundle> jsonBundles = new ArrayList<JsonBundle>();
+				Map<Long, JsonBundle> importingBundlesMap = new HashMap<Long, JsonBundle>();
 				if (exportedPackages != null) {
 					for (ExportedPackage ep : exportedPackages) {
 						Bundle[] importingBundles = ep.getImportingBundles();
 						for (Bundle b : importingBundles) {
-							jsonBundles.add(new JsonBundle(b));
+							if (!importingBundlesMap.containsKey(b.getBundleId())) {
+								importingBundlesMap.put(b.getBundleId(), new JsonBundle(b));
+							}
 						}
 					}
 				}
-				return jsonBundles;
+				return importingBundlesMap.values();
 			} else {
 				// TODO CHECK IF IS IT A GOOD INDICATION THAT THE PACKAGEADMIN SERVICE IS NOT AVAILABLE?
 				return null;

@@ -1,7 +1,6 @@
 package org.danielsoft.webconsole.ui;
 
 import org.danielsoft.webconsole.service.BundleInstallServlet;
-import org.danielsoft.webconsole.service.BundleReadServlet;
 import org.danielsoft.webconsole.service.BundlesServlet;
 import org.danielsoft.webconsole.service.ExtensionsServlet;
 import org.danielsoft.webconsole.service.GroovyServlet;
@@ -58,7 +57,6 @@ public class Activator implements BundleActivator, ServiceListener {
 			
 			IndexServlet indexServlet = new IndexServlet(bundleContext);
 			BundlesServlet bundleServlet = new BundlesServlet(bundleContext);
-			BundleReadServlet bundleReadServlet = new BundleReadServlet(bundleContext);
 			SystemInfoServlet systemInfoServlet = new SystemInfoServlet();
 			BundleInstallServlet bundleInstallServlet = new BundleInstallServlet(bundleContext);
 			ServicesServlet servicesServlet = new ServicesServlet(bundleContext);
@@ -68,7 +66,6 @@ public class Activator implements BundleActivator, ServiceListener {
 
 			httpService.registerServlet("/webconsole/index.html", indexServlet, null, null);
 			httpService.registerServlet("/webconsole/service/bundles", bundleServlet, null, null);
-			httpService.registerServlet("/webconsole/service/bundles/read", bundleReadServlet, null, null);
 			httpService.registerServlet("/webconsole/service/bundles/install", bundleInstallServlet, null, null);
 			httpService.registerServlet("/webconsole/service/system", systemInfoServlet, null, null);
 			httpService.registerServlet("/webconsole/service/services", servicesServlet, null, null);
