@@ -43,6 +43,9 @@ Ext.define('WebConsole.BundlesPanel', {
 			}, {
 				name : 'importingBundles',
 				type : 'object'
+			}, {
+				name : 'services',
+				type : 'object'
 			} ]
 		});
 		this.bundlesStore = Ext.create('Ext.data.Store', {
@@ -106,66 +109,83 @@ Ext.define('WebConsole.BundlesPanel', {
 					handler : this.onUninstallClick
 				}]
 			} ],
-			plugins : [{
-	            ptype : 'rowexpander',
-	            rowBodyTpl : [
-	                '<table style="margin-left: 30px; margin-top: 10px; margin-bottom: 4px;">',
-	                	'<tr><td class="x-grid-cell-property">Symbolic Name&nbsp;</td><td>{symbolicName}</td></tr>',
-	                	'<tr><td class="x-grid-cell-property">Version&nbsp;</td><td>{version}</td></tr>',
-	                	'<tr><td class="x-grid-cell-property">Bundle Location&nbsp;</td><td>{location}</td></tr>',
-	                	'<tr><td class="x-grid-cell-property">Last Modified&nbsp;</td><td>{lastModified}</td></tr>',
-	                	'<tr><td class="x-grid-cell-property">Description&nbsp;</td><td>{description}</td></tr>',
-	                	'<tr>',
-	                		'<td class="x-grid-cell-property">Exported Packages&nbsp;</td>',
-	                		'<td>',
-	                			'<table>',
-	                			'<tpl for="exportedPackages">',
-	                				'<tr><td class="x-grid-cell-property">{name}</td><td>{version}</td></tr>',
-	                			'</tpl>',
-	                			'</table>',
-	                		'</td>',
-	                	'</tr>',
-                		'<tpl if="importedPackages.length &gt; 0">',
-		                	'<tr>',
-	                			'<td class="x-grid-cell-property">Imported Packages&nbsp;</td>',
-	                			'<td>',
-	                				'<table>',
-	                				'<tpl for="importedPackages">',
-	                					'<tr>',
-	                						'<td class="x-grid-cell-property">{name}</td>',
-	                						'<td>{version}</td>',
-	                						'<td style="padding-left: 10px">from&nbsp;{exportingBundle.symbolicName}&nbsp;({exportingBundle.id})</td>',
-	                						'</tr>',
-	                				'</tpl>',
-	                				'</table>',
-	                			'</td>',
-	                		'</tr>',
-                		'</tpl>',
-                		'<tpl if="importingBundles.length &gt; 0">',
-		                	'<tr>',
-		                		'<td class="x-grid-cell-property">Importing Bundles&nbsp;</td>',
-		                		'<td>',
-		                		'<tpl for="importingBundles">',
-		                			'{symbolicName}&nbsp;({id})<br/>',
-		                		'</tpl>',
-		                		'</td>',
-		                	'</tr>',
-		                '</tpl>',
-		                '<tr>',
-		                	'<td class="x-grid-cell-property">Manifest Headers&nbsp;</td>',
-		                	'<td>',
-		                		'<table>',
-		                		'<tpl for="manifestHeaders">',
-		                			'<tr><td class="x-grid-cell-property">{key}</td><td>{value}</td></tr>',
-		                		'</tpl>',
-		                		'</table>',
-		                	'</td>',
-		                '</tr>',
-	                '</table>'
-	            ]
-	        }]
+			plugins : [ {
+				ptype : 'rowexpander',
+				rowBodyTpl : [
+					'<table style="margin-left: 30px; margin-top: 10px; margin-bottom: 4px;">',
+						'<tr><td class="x-grid-cell-property">Symbolic Name</td><td>{symbolicName}</td></tr>',
+						'<tr><td class="x-grid-cell-property">Bundle Location</td><td>{location}</td></tr>',
+						'<tr><td class="x-grid-cell-property">Last Modified</td><td>{lastModified}</td></tr>',
+						'<tr><td class="x-grid-cell-property">Description</td><td>{description}</td></tr>',
+						'<tpl if="services.length &gt; 0">',
+							'<tr>',
+								'<td class="x-grid-cell-property">Registered Services</td>',
+								'<td>',
+									'<table>',
+										'<tpl for="services">',
+											'<tr>',
+												'<td class="x-grid-cell-property">{id}</td>',
+												'<td>',
+													'<tpl for="types">',
+														'{.}<br/>',
+													'</tpl>',
+												'</td>',
+											'</tr>',
+										'</tpl>',
+									'</table>',
+								'</td>',
+							'</tr>',
+						'</tpl>',
+						'<tr>',
+							'<td class="x-grid-cell-property">Exported Packages</td>',
+							'<td>',
+								'<table>',
+									'<tpl for="exportedPackages">',
+							'			<tr><td class="x-grid-cell-property">{name}</td><td>{version}</td></tr>',
+									'</tpl>',
+								'</table>',
+							'</td>',
+						'</tr>',
+						'<tpl if="importedPackages.length &gt; 0">',
+							'<tr>',
+								'<td class="x-grid-cell-property">Imported Packages</td>',
+								'<td>',
+									'<table>',
+										'<tpl for="importedPackages">',
+											'<tr>',
+												'<td class="x-grid-cell-property">{name}</td>',
+												'<td>{version}</td>',
+												'<td style="padding-left: 10px">from&nbsp;{exportingBundle.symbolicName}&nbsp;({exportingBundle.id})</td>',
+											'</tr>',
+										'</tpl>',
+									'</table>',
+								'</td>',
+							'</tr>',
+						'</tpl>',
+						'<tpl if="importingBundles.length &gt; 0">',
+							'<tr>',
+								'<td class="x-grid-cell-property">Importing Bundles</td>',
+								'<td>',
+									'<tpl for="importingBundles">',
+										'{symbolicName}&nbsp;({id})<br/>',
+									'</tpl>',
+								'</td>',
+							'</tr>',
+						'</tpl>',
+						'<tr>',
+							'<td class="x-grid-cell-property">Manifest Headers</td>',
+							'<td>',
+								'<table>',
+									'<tpl for="manifestHeaders">',
+										'<tr><td class="x-grid-cell-property">{key}</td><td>{value}</td></tr>',
+									'</tpl>',
+								'</table>',
+							'</td>',
+						'</tr>',
+						'</table>'
+				]
+			}]
 		});
-
 
 		Ext.apply(this, {
 			layout : 'border',
@@ -176,7 +196,7 @@ Ext.define('WebConsole.BundlesPanel', {
 
 		this.callParent(arguments);
 	},
-	
+
 	_createToolbar : function() {
 		var toolbar = Ext.create('widget.toolbar', {
 			items : [ {

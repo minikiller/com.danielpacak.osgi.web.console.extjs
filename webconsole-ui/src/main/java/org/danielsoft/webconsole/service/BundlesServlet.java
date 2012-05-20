@@ -2,16 +2,15 @@ package org.danielsoft.webconsole.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -103,6 +102,18 @@ public class BundlesServlet extends HttpServlet {
 		}
 		public Date getLastModified() {
 			return new Date(bundle.getLastModified());
+		}
+		public Collection<JsonService> getServices() {
+			ServiceReference[] serviceReferences = bundle.getRegisteredServices();
+			if (serviceReferences != null) {
+				List<JsonService> jsonServices = new ArrayList<JsonService>();
+				for (ServiceReference sr : serviceReferences) {
+					jsonServices.add(new JsonService(sr));
+				}
+				return jsonServices;
+			} else {
+				return Collections.emptyList();
+			}
 		}
 		public Collection<JsonHeader> getManifestHeaders() {
 			List<JsonHeader> headers = new ArrayList<JsonHeader>();
@@ -249,6 +260,20 @@ public class BundlesServlet extends HttpServlet {
 		}
 		public long getId() {
 			return bundle.getBundleId(); 
+		}
+	}
+	
+	class JsonService {
+		ServiceReference serviceReference;
+		public JsonService(ServiceReference serviceReference) {
+			this.serviceReference = serviceReference;
+		}
+		public Long getId() {
+			return (Long) serviceReference.getProperty(Constants.SERVICE_ID);
+		}
+		public Collection<String> getTypes() {
+			String[] types = (String[]) serviceReference.getProperty(Constants.OBJECTCLASS);
+			return Arrays.asList(types);
 		}
 	}
 
