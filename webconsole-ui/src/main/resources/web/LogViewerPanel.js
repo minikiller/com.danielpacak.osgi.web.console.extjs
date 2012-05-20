@@ -79,7 +79,7 @@ Ext.define('WebConsole.LogViewerPanel', {
 		this.toolbar = Ext.create('widget.toolbar', {
 			items : [ {
 				text : 'Reload',
-				icon : 'css/images/reload.png',
+				iconCls : 'reloadIcon',
 				handler : this.onReloadClick,
 				scope : this
 			} ]

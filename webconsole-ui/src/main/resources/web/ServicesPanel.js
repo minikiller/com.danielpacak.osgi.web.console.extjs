@@ -59,42 +59,36 @@ Ext.define('WebConsole.ServicesPanel', {
 				width : 300,
 				renderer : this._bundleRenderer,
 				dataIndex : 'bundle'
-			}/*, {
-				xtype : 'actioncolumn',
-				icon : 'css/images/service_test.png',
-				width : 50,
-				align : 'center',
-				handler : this.onTestServiceClick
-			}*/ ],
+			} ],
 			plugins: [ {
-	            ptype: 'rowexpander',
-	            rowBodyTpl : [
-   	                '<table style="margin-left: 30px; margin-top: 10px; margin-bottom: 4px;">',
-		                '<tpl if="properties.length &gt; 0">',
-		                	'<tr>',
-			                	'<td class="x-grid-cell-property">Properties&nbsp;</td>',
-			                	'<td>',
-			                		'<table>',
-				                		'<tpl for="properties">',
-				                			'<tr><td class="x-grid-cell-property">{key}</td><td>{value}</td></tr>',
-				                		'</tpl>',
-				                	'</table>',
-			                	'</td>',
-		                	'</tr>',
-		                '</tpl>',
-		                '<tpl if="usingBundles.length &gt; 0">',
-		                	'<tr>',
-			                	'<td class="x-grid-cell-property">Using Bundle(s)&nbsp;</td>',
-			                	'<td>',
-				                	'<tpl for="usingBundles">',
-				                		'{symbolicName}&nbsp;({id})<br/>',
-				                	'</tpl>',
-			                	'</td>',
-		                	'</tr>',
-		                '</tpl>',
-	                '</table>'
-	            ]
-	        }]
+				ptype: 'rowexpander',
+				rowBodyTpl : [
+					'<table style="margin-left: 30px; margin-top: 10px; margin-bottom: 4px;">',
+						'<tpl if="properties.length &gt; 0">',
+							'<tr>',
+								'<td class="x-grid-cell-property">Properties&nbsp;</td>',
+								'<td>',
+									'<table>',
+										'<tpl for="properties">',
+											'<tr><td class="x-grid-cell-property">{key}</td><td>{value}</td></tr>',
+										'</tpl>',
+									'</table>',
+								'</td>',
+							'</tr>',
+						'</tpl>',
+						'<tpl if="usingBundles.length &gt; 0">',
+							'<tr>',
+								'<td class="x-grid-cell-property">Using Bundle(s)&nbsp;</td>',
+								'<td>',
+									'<tpl for="usingBundles">',
+										'{symbolicName}&nbsp;({id})<br/>',
+									'</tpl>',
+								'</td>',
+							'</tr>',
+						'</tpl>',
+					'</table>'
+				]
+			}]
 		});
 
 		/*this.servicesGrid.getView().on('render', function(view) {

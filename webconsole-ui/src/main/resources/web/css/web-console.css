@@ -4,7 +4,11 @@
 }
 
 .tabIcon {
-	background-image: url(images/tabs.gif ) !important;
+	background-image: url(images/tabs.gif) !important;
+}
+
+.reloadIcon {
+	background-image: url(images/reload.png) !important;
 }
 
 #header h1 {
