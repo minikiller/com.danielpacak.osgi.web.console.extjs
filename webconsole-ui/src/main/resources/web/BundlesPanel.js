@@ -27,7 +27,8 @@ Ext.define('WebConsole.BundlesPanel', {
 				name : 'location',
 				type : 'string'
 			}, {
-				name : 'lastModified'
+				name : 'lastModified',
+				type : 'long'
 			}, {
 				name : 'state',
 				type : 'string'
@@ -115,7 +116,7 @@ Ext.define('WebConsole.BundlesPanel', {
 					'<table style="margin-left: 30px; margin-top: 10px; margin-bottom: 4px;">',
 						'<tr><td class="x-grid-cell-property">Symbolic Name</td><td>{symbolicName}</td></tr>',
 						'<tr><td class="x-grid-cell-property">Bundle Location</td><td>{location}</td></tr>',
-						'<tr><td class="x-grid-cell-property">Last Modified</td><td>{lastModified}</td></tr>',
+						'<tr><td class="x-grid-cell-property">Last Modified</td><td>{lastModified:date("d-m-Y h:i:s")}</td></tr>',
 						'<tr><td class="x-grid-cell-property">Description</td><td>{description}</td></tr>',
 						'<tpl if="services.length &gt; 0">',
 							'<tr>',
