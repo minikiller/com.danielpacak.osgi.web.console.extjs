@@ -34,6 +34,12 @@ Ext.define('WebConsole.BundlesPanel', {
 			}, {
 				name : 'manifestHeaders',
 				type : 'object'
+			}, {
+				name : 'exportedPackages',
+				type : 'object'
+			}, {
+				name : 'importedPackages',
+				type : 'object'
 			} ]
 		});
 		this.bundlesStore = Ext.create('Ext.data.Store', {
@@ -106,8 +112,30 @@ Ext.define('WebConsole.BundlesPanel', {
 	                	'<tr><td class="x-grid-cell-property">Bundle Location&nbsp;</td><td>{location}</td></tr>',
 	                	'<tr><td class="x-grid-cell-property">Last Modified&nbsp;</td><td>{lastModified}</td></tr>',
 	                	'<tr><td class="x-grid-cell-property">Description&nbsp;</td><td>{description}</td></tr>',
-	                	'<tr><td class="x-grid-cell-property">Exported Packages&nbsp;</td><td>TODO</td></tr>',
-	                	'<tr><td class="x-grid-cell-property">Imported Packages&nbsp;</td><td>TODO</td></tr>',
+	                	'<tr>',
+	                		'<td class="x-grid-cell-property">Exported Packages&nbsp;</td>',
+	                		'<td>',
+	                			'<table>',
+	                			'<tpl for="exportedPackages">',
+	                				'<tr><td class="x-grid-cell-property">{name}</td><td>{version}</td></tr>',
+	                			'</tpl>',
+	                			'</table>',
+	                		'</td>',
+	                	'</tr>',
+	                	'<tr>',
+                			'<td class="x-grid-cell-property">Imported Packages&nbsp;</td>',
+                			'<td>',
+                				'<table>',
+                				'<tpl for="importedPackages">',
+                					'<tr>',
+                						'<td class="x-grid-cell-property">{name}</td>',
+                						'<td>{version}</td>',
+                						'<td style="padding-left: 10px">from&nbsp;{exportingBundle.symbolicName}&nbsp;({exportingBundle.id})</td>',
+                						'</tr>',
+                				'</tpl>',
+                				'</table>',
+                			'</td>',
+                		'</tr>',
 	                	'<tr><td class="x-grid-cell-property">Importing Bundles&nbsp;</td><td>TODO</td></tr>',
 		                '<tr>',
 		                	'<td class="x-grid-cell-property">Manifest Headers&nbsp;</td>',

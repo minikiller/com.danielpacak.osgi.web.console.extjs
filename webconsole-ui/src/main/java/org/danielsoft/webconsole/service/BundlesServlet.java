@@ -2,12 +2,11 @@ package org.danielsoft.webconsole.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Dictionary;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +17,9 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
+import org.osgi.framework.ServiceReference;
+import org.osgi.service.packageadmin.ExportedPackage;
+import org.osgi.service.packageadmin.PackageAdmin;
 
 @SuppressWarnings("serial")
 public class BundlesServlet extends HttpServlet {
@@ -32,13 +34,21 @@ public class BundlesServlet extends HttpServlet {
 			throws ServletException, IOException {
 		resp.setContentType("application/json");
 		resp.setCharacterEncoding("UTF-8");
-		
+
 		Bundle[] bundles = bundleContext.getBundles();
 		JsonBundles jsonBundles = new JsonBundles(bundles);
 		ObjectMapper om = new ObjectMapper();
 		om.writeValue(resp.getWriter(), jsonBundles);
 	}
-	
+
+	PackageAdmin getPackageAdmin() {
+		ServiceReference ref = bundleContext.getServiceReference(PackageAdmin.class.getName());
+		if (ref != null) {
+			return (PackageAdmin) bundleContext.getService(ref);
+		}
+		return null;
+	}
+
 	class JsonBundles {
 		Bundle[] bundles;
 		JsonBundles(Bundle[] bundles) {
@@ -98,6 +108,47 @@ public class BundlesServlet extends HttpServlet {
 			}
 			return headers;
 		}
+		public List<JsonPackage> getExportedPackages() {
+			PackageAdmin packageAdmin = getPackageAdmin();
+			if (packageAdmin != null) {
+				ExportedPackage[] exportedPackages = packageAdmin.getExportedPackages(bundle);
+				if (exportedPackages != null) {
+					List<JsonPackage> jsonPackages = new ArrayList<JsonPackage>(exportedPackages.length);
+					for (ExportedPackage ep : exportedPackages) {
+						jsonPackages.add(new JsonPackage(ep.getName(), String.valueOf(ep.getVersion())));
+					}
+					return jsonPackages;
+				} else {
+					return Collections.emptyList();
+				}
+			} else {
+				// TODO IS IT A GOOD INDICATION THAT THE PACKAGEADMIN SERVICE IS NOT AVAILABLE?
+				return null;
+			}
+		}
+		public List<JsonPackage> getImportedPackages() {
+			PackageAdmin packageAdmin = getPackageAdmin();
+			if (packageAdmin != null) {
+				ExportedPackage[] exportedPackages = packageAdmin.getExportedPackages((Bundle)null);
+				if (exportedPackages != null) {
+					List<JsonPackage> jsonPackages = new ArrayList<JsonPackage>();
+					for (ExportedPackage ep : exportedPackages) {
+						Bundle[] importinBundles = ep.getImportingBundles();
+						for (Bundle importingBundle : importinBundles) {
+							if (importingBundle.getBundleId() == bundle.getBundleId()) {
+								jsonPackages.add(new JsonImportedPackage(ep.getName(), String.valueOf(ep.getVersion()), ep.getExportingBundle()));
+							}
+						}
+					}
+					return jsonPackages;
+				} else {
+					return Collections.emptyList();
+				}
+			} else {
+				// TODO CHECK IF IS IT A GOOD INDICATION THAT THE PACKAGEADMIN SERVICE IS NOT AVAILABLE?
+				return null;
+			}
+		}
 
 		public String getState() {
 			switch (bundle.getState()) {
@@ -131,6 +182,46 @@ public class BundlesServlet extends HttpServlet {
 		}
 		public String getValue() {
 			return value;
+		}
+	}
+	
+	class JsonPackage {
+		String name;
+		String version;
+		JsonPackage(String name, String version) {
+			this.name = name;
+			this.version = version;
+		}
+
+		public String getName() {
+			return name;
+		}
+		public String getVersion() {
+			return version;
+		}
+	}
+	
+	class JsonImportedPackage extends JsonPackage {
+		Bundle exportingBundle;
+		public JsonImportedPackage(String name, String version, Bundle exportingBundle) {
+			super(name, version);
+			this.exportingBundle = exportingBundle;
+		}
+		public JsonBundle getExportingBundle() {
+			return new JsonBundle(exportingBundle);
+		}
+		
+		class JsonBundle {
+			Bundle bundle;
+			JsonBundle(Bundle bundle) {
+				this.bundle = bundle;
+			}
+			public String getSymbolicName() {
+				return bundle.getSymbolicName();
+			}
+			public long getId() {
+				return bundle.getBundleId(); 
+			}
 		}
 	}
 
