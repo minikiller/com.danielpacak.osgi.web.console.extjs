@@ -53,6 +53,7 @@ public class IndexServlet extends HttpServlet {
 		sb.append("<script type='text/javascript' src='./ServicesPanel.js'></script>\n");
 		sb.append("<script type='text/javascript' src='./SystemInfoPanel.js'></script>\n");
 		sb.append("<script type='text/javascript' src='./GroovyConsolePanel.js'></script>\n");
+		sb.append("<script type='text/javascript' src='./LogViewerPanel.js'></script>\n");
 		sb.append("<script type='text/javascript' src='./ExtensionsPanel.js'></script>\n");
 		
 		// extensions

@@ -5,7 +5,7 @@ import org.danielsoft.webconsole.service.BundlesServlet;
 import org.danielsoft.webconsole.service.ExtensionsServlet;
 import org.danielsoft.webconsole.service.GroovyServlet;
 import org.danielsoft.webconsole.service.IndexServlet;
-import org.danielsoft.webconsole.service.ServiceReadServlet;
+import org.danielsoft.webconsole.service.LogServlet;
 import org.danielsoft.webconsole.service.ServicesServlet;
 import org.danielsoft.webconsole.service.SystemInfoServlet;
 import org.osgi.framework.BundleActivator;
@@ -60,8 +60,8 @@ public class Activator implements BundleActivator, ServiceListener {
 			SystemInfoServlet systemInfoServlet = new SystemInfoServlet();
 			BundleInstallServlet bundleInstallServlet = new BundleInstallServlet(bundleContext);
 			ServicesServlet servicesServlet = new ServicesServlet(bundleContext);
-			ServiceReadServlet serviceReadServlet = new ServiceReadServlet(bundleContext);
 			GroovyServlet groovyServlet = new GroovyServlet(bundleContext);
+			LogServlet logServlet = new LogServlet(bundleContext);
 			ExtensionsServlet extensionServlet = new ExtensionsServlet(bundleContext);
 
 			httpService.registerServlet("/webconsole/index.html", indexServlet, null, null);
@@ -69,8 +69,8 @@ public class Activator implements BundleActivator, ServiceListener {
 			httpService.registerServlet("/webconsole/service/bundles/install", bundleInstallServlet, null, null);
 			httpService.registerServlet("/webconsole/service/system", systemInfoServlet, null, null);
 			httpService.registerServlet("/webconsole/service/services", servicesServlet, null, null);
-			httpService.registerServlet("/webconsole/service/services/read", serviceReadServlet, null, null);
 			httpService.registerServlet("/webconsole/service/groovy", groovyServlet, null, null);
+			httpService.registerServlet("/webconsole/service/log", logServlet, null, null);
 			httpService.registerServlet("/webconsole/service/extensions", extensionServlet, null, null);
 
 		} catch (Exception e) {

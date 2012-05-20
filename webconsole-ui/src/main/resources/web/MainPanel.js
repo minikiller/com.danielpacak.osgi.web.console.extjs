@@ -22,6 +22,10 @@ Ext.define('WebConsole.MainPanel', {
 				iconCls : 'tabIcon',
 				xtype : 'groovyconsolepanel'
 			}, {
+				title : 'Log Viewer',
+				iconCls : 'tabIcon',
+				xtype : 'logviewerpanel'
+			}, {
 				title : 'Extensions',
 				iconCls : 'tabIcon',
 				xtype : 'extensionspanel'
