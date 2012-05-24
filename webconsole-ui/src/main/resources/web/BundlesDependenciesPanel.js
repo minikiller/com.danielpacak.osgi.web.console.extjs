@@ -3,9 +3,20 @@ Ext.define('WebConsole.BundlesDependenciesPanel', {
 	alias : 'widget.bundlesdependenciespanel',
 
 	initComponent : function() {
+		var drawComponent = Ext.create('Ext.draw.Component', {
+			viewBox : false,
+			items : [ {
+				type : 'circle',
+				fill : '#416DA3',
+				radius : 40,
+				x : 110,
+				y : 110
+			} ]
+		});
 
 		Ext.apply(this, {
-			layout : 'border'
+			layout : 'border',
+			items : drawComponent
 		});
 
 		this.callParent(arguments);
@@ -18,6 +29,6 @@ Ext.define('WebConsole.BundlesDependenciesPanel', {
 			failure : WebConsole.onAjaxFailure,
 			scope : this
 		});
-	},
+	}
 
 });
