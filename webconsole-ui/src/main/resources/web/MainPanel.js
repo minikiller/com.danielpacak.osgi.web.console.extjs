@@ -14,6 +14,10 @@ Ext.define('WebConsole.MainPanel', {
 				iconCls : 'tabIcon',
 				xtype : 'servicespanel'
 			}, {
+				title : 'Bundles Dependencies',
+				iconCls : 'tabIcon',
+				xtype : 'bundlesdependenciespanel'
+			}, {
 				title : 'System Information',
 				iconCls : 'tabIcon',
 				xtype : 'systeminfopanel'
