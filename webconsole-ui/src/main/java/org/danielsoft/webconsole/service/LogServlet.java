@@ -2,6 +2,7 @@ package org.danielsoft.webconsole.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -14,7 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.Constants;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.log.LogEntry;
 import org.osgi.service.log.LogReaderService;
@@ -96,6 +99,45 @@ public class LogServlet extends HttpServlet {
 			}
 		}
 
+		public JsonBundle getBundle() {
+			Bundle bundle =  logEntry.getBundle();
+			return bundle != null ? new JsonBundle(bundle) : null;
+		}
+
+		public JsonService getService() {
+			ServiceReference ref = logEntry.getServiceReference();
+			return ref != null ? new JsonService(ref) : null;
+		}
+
+	}
+
+	class JsonBundle {
+		Bundle bundle;
+		JsonBundle(Bundle bundle) {
+			this.bundle = bundle;
+		}
+		public Long getId() {
+			return bundle.getBundleId();
+		}
+		public String getSymbolicName() {
+			return bundle.getSymbolicName();
+		}
+	}
+
+	class JsonService {
+		ServiceReference ref;
+		JsonService(ServiceReference ref) {
+			this.ref = ref;
+		}
+
+		public Long getId() {
+			return (Long) ref.getProperty(Constants.SERVICE_ID);
+		}
+
+		public String getTypes() {
+			return Arrays.toString((String[]) ref.getProperty(Constants.OBJECTCLASS));
+		}
+		
 	}
 
 	class JsonException {

@@ -17,6 +17,12 @@ Ext.define('WebConsole.LogViewerPanel', {
 			}, {
 				name : 'exception',
 				type : 'object'
+			}, {
+				name : 'service',
+				type : 'object'
+			}, {
+				name : 'bundle',
+				type : 'object'
 			} ]
 		});
 		this.logStore = Ext.create('Ext.data.Store', {
@@ -57,14 +63,33 @@ Ext.define('WebConsole.LogViewerPanel', {
 			plugins: [ {
 				ptype: 'rowexpander',
 				rowBodyTpl : [
-					'<tpl if="exception != null">',
-						'<table style="margin-left: 30px; margin-top: 10px; margin-bottom: 4px;">',
-						'<tr><td colspan="2">{exception.message}</td></tr>',
-						'<tpl for="exception.stackTrace">',
-							'<tr><td>&nbsp;&nbsp;</td><td>at&nbsp;{className}.{methodName}({fileName}:{lineNumber})</td></tr>',
+					'<table style="margin-left: 30px; margin-top: 10px; margin-bottom: 4px;">',
+						'<tpl if="exception != null">',
+							'<tr>',
+								'<td class="x-grid-cell-property">Exception</td>',
+								'<td>',
+									'<table>',
+										'<tr><td colspan="2">{exception.message}</td></tr>',
+										'<tpl for="exception.stackTrace">',
+											'<tr><td>&nbsp;&nbsp;</td><td>at&nbsp;{className}.{methodName}({fileName}:{lineNumber})</td></tr>',
+										'</tpl>',
+									'</table>',
+								'</td>',
+							'</tr>',
 						'</tpl>',
-						'</table>',
-					'</tpl>'
+						'<tpl if="service != null">',
+							'<tr>',
+								'<td class="x-grid-cell-property">Service</td>',
+								'<td>{service.id}&nbsp;{service.types}</td>',
+							'</tr>',
+						'</tpl>',
+						'<tpl if="bundle != null">',
+							'<tr>',
+								'<td class="x-grid-cell-property">Bundle</td>',
+								'<td>{bundle.symbolicName}&nbsp;({bundle.id})</td>',
+							'</tr>',
+						'</tpl>',
+					'</table>'
 				]
 			} ]
 		});

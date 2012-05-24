@@ -7,10 +7,10 @@ Ext.define('WebConsole.BundlesDependenciesPanel', {
 			viewBox : false,
 			items : [ {
 				type : 'circle',
-				fill : '#416DA3',
-				radius : 40,
+				fill : '#EA3818',
 				x : 110,
-				y : 110
+				y : 110,
+				radius : 50
 			} ]
 		});
 
