@@ -63,7 +63,7 @@ Ext.define('WebConsole.BundlesPanel', {
 				property : 'id',
 				direction : 'ASC'
 			} ],
-			autoLoad : true
+			autoLoad : false
 		});
 
 		this.bundlesGrid = Ext.create('Ext.grid.Panel', {
@@ -204,6 +204,10 @@ Ext.define('WebConsole.BundlesPanel', {
 		});
 
 		this.callParent(arguments);
+	},
+
+	onActivate : function() {
+		this.bundlesStore.load();
 	},
 
 	_createToolbar : function() {

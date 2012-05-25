@@ -38,7 +38,7 @@ Ext.define('WebConsole.LogViewerPanel', {
 				property : 'time',
 				direction : 'DESC'
 			} ],
-			autoLoad : true
+			autoLoad : false
 		});
 
 		this.logGrid = Ext.create('Ext.grid.Panel', {
@@ -102,6 +102,14 @@ Ext.define('WebConsole.LogViewerPanel', {
 		this.callParent(arguments);
 	},
 
+	/**
+	 * Called on tab activation
+	 */
+	onActivate : function() {
+		//alert('i am activated');
+		this.logStore.load();
+	},
+
 	_createToolbar : function() {
 		this.toolbar = Ext.create('widget.toolbar', {
 			items : [ {
@@ -114,9 +122,9 @@ Ext.define('WebConsole.LogViewerPanel', {
 
 		return this.toolbar;
 	},
-	
+
 	_dateRendered : function(jsonLogEntry, metaData) {
-		return Ext.util.Format.date(new Date(jsonLogEntry), 'd-m-Y h:i:s');
+		return Ext.util.Format.date(new Date(jsonLogEntry), 'd-m-Y H:i:s');
 	},
 
 	onReloadClick : function() {

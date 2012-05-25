@@ -8,11 +8,21 @@ Ext.define('WebConsole.MainPanel', {
 			items : [ {
 				title : 'Bundles',
 				iconCls : 'tabIcon',
-				xtype : 'bundlespanel'
+				xtype : 'bundlespanel',
+				listeners : {
+					activate : function(tab){
+						tab.onActivate(); // TODO CHECK IF DEFINED
+					}
+				}
 			}, {
 				title : 'Services',
 				iconCls : 'tabIcon',
-				xtype : 'servicespanel'
+				xtype : 'servicespanel',
+				listeners : {
+					activate : function(tab){
+						tab.onActivate(); // TODO CHECK IF DEFINED
+					}
+				}
 			}, {
 				title : 'Bundles Dependencies',
 				iconCls : 'tabIcon',
@@ -20,7 +30,12 @@ Ext.define('WebConsole.MainPanel', {
 			}, {
 				title : 'System Information',
 				iconCls : 'tabIcon',
-				xtype : 'systeminfopanel'
+				xtype : 'systeminfopanel',
+				listeners : {
+					activate : function(tab){
+						tab.onActivate(); // TODO CHECK IF DEFINED
+					}
+				}
 			}, {
 				title : 'Groovy Console',
 				iconCls : 'tabIcon',
@@ -28,11 +43,21 @@ Ext.define('WebConsole.MainPanel', {
 			}, {
 				title : 'Log Viewer',
 				iconCls : 'tabIcon',
-				xtype : 'logviewerpanel'
+				xtype : 'logviewerpanel',
+				listeners : {
+					activate : function(tab){
+						tab.onActivate(); // TODO CHECK IF DEFINED
+					}
+				}
 			}, {
 				title : 'Extensions',
 				iconCls : 'tabIcon',
-				xtype : 'extensionspanel'
+				xtype : 'extensionspanel',
+				listeners : {
+					activate : function(tab){
+						tab.onActivate(); // TODO CHECK IF DEFINED
+					}
+				}
 			} ]
 		});
 

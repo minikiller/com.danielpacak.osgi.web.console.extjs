@@ -39,7 +39,7 @@ Ext.define('WebConsole.ServicesPanel', {
 				property : 'id',
 				direction : 'ASC'
 			} ],
-			autoLoad : true
+			autoLoad : false
 		});
 
 		this.servicesGrid = Ext.create('Ext.grid.Panel', {
@@ -56,7 +56,7 @@ Ext.define('WebConsole.ServicesPanel', {
 				flex : 1
 			}, {
 				header : 'Bundle',
-				width : 300,
+				width : 350,
 				renderer : this._bundleRenderer,
 				dataIndex : 'bundle'
 			} ],
@@ -116,6 +116,10 @@ Ext.define('WebConsole.ServicesPanel', {
 		});
 
 		this.callParent(arguments);
+	},
+
+	onActivate : function() {
+		this.serviceStore.load();
 	},
 
 	_bundleRenderer : function(jsonBundle, metaData) {

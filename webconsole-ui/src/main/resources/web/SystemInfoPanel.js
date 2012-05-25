@@ -61,6 +61,10 @@ Ext.define('WebConsole.SystemInfoPanel', {
 		this.callParent(arguments);
 	},
 
+	onActivate : function() {
+		this.onReloadClick();
+	},
+
 	_createToolbar : function() {
 		this.toolbar = Ext.create('widget.toolbar', {
 			items : [ {

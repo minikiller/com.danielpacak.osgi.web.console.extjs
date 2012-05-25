@@ -36,7 +36,7 @@ Ext.define('WebConsole.ExtensionsPanel', {
 				property : 'name',
 				direction : 'ASC'
 			} ],
-			autoLoad : true
+			autoLoad : false
 		});
 
 		this.extensionsGrid = Ext.create('Ext.grid.Panel', {
@@ -82,6 +82,10 @@ Ext.define('WebConsole.ExtensionsPanel', {
 		});
 
 		this.callParent(arguments);
+	},
+
+	onActivate : function() {
+		this.extensionsStore.load();
 	},
 
 	_createToolbar : function() {
