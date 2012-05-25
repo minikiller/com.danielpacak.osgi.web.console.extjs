@@ -115,7 +115,8 @@ Ext.define('WebConsole.BundlesPanel', {
 				}, {
 					icon : 'css/images/bundle_delete.png',
 					tooltip : 'Uninstall',
-					handler : this.onUninstallClick
+					handler : this.onUninstallClick,
+					scope : this
 				}]
 			} ],
 			plugins : [ {
@@ -230,12 +231,16 @@ Ext.define('WebConsole.BundlesPanel', {
 	onReloadClick: function() {
 		this.bundlesStore.load();
 	},
-	
+
 	executeAction : function(grid, rowIndex, colIndex) {
 		var rec = grid.getStore().getAt(rowIndex);
 		var action = rec.get('state') == 'Active' ? 'stop' : 'start';
 		var bundleId = rec.get('id');
 
+		this.doExecuteAction(action, bundleId);
+	},
+
+	doExecuteAction : function(action, bundleId) {
 		Ext.Ajax.request({
 			url : 'service/bundles',
 			params : {
@@ -266,10 +271,12 @@ Ext.define('WebConsole.BundlesPanel', {
 		this.bundlesStore.load();
 	},
 
-	onUninstallClick : function() {
-		alert('uninstall...');
+	onUninstallClick : function(grid, rowIndex, colIndex) {
+		var rec = grid.getStore().getAt(rowIndex);
+		var bundleId = rec.get('id');
+		this.doExecuteAction('uninstall', bundleId);
 	},
-	
+
 	onUpdateClick : function() {
 		alert('Updating...');
 	},

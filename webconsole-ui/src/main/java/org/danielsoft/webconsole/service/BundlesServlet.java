@@ -56,10 +56,15 @@ public class BundlesServlet extends HttpServlet {
 				bundle.stop();
 			} else if ("start".equals(action)) {
 				bundle.start();
+			} else if ("uninstall".equals(action)) {
+				bundle.uninstall();
+			} else {
+				resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Unknown action: " + action);
 			}
 			resp.setContentType("application/json");
 			resp.getWriter().print("{success : true}");
 		} catch (BundleException e) {
+			log(String.format("Error while executing action [%s]", action), e);
 			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	};
