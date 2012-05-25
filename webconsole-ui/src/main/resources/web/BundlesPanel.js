@@ -92,10 +92,18 @@ Ext.define('WebConsole.BundlesPanel', {
 				xtype : 'actioncolumn',
 				width : 100,
 				align : 'center',
-				items : [{
-					icon : 'css/images/bundle_stop.png',
-					tooltip : 'Stop',
-					handler : this.onStopClick
+				items : [ {
+					getClass : function(v, meta, rec) {
+						if (rec.get('state') == 'Active') {
+							//this.items[4].tooltip = 'Stop';
+							return 'bundle-stop';
+						} else {
+							//this.items[4].tooltip = 'Start';
+							return 'bundle-start';
+						}
+					},
+					handler : this.executeAction,
+					scope : this
 				}, {
 					icon : 'css/images/bundle_refresh.png',
 					tooltip : 'Refresh package imports',
@@ -214,15 +222,46 @@ Ext.define('WebConsole.BundlesPanel', {
 
 		return toolbar;
 	},
-	
+
 	onReloadClick: function() {
 		this.bundlesStore.load();
 	},
 	
-	onStopClick : function() {
-		alert('stopping bundle!');
+	executeAction : function(grid, rowIndex, colIndex) {
+		var rec = grid.getStore().getAt(rowIndex);
+		var action = rec.get('state') == 'Active' ? 'stop' : 'start';
+		var bundleId = rec.get('id');
+
+		Ext.Ajax.request({
+			url : 'service/bundles',
+			params : {
+				action : action,
+				bundleId : bundleId
+			},
+			success : this.onStopClickSuccess,
+			failure : WebConsole.onAjaxFailure,
+			scope : this
+		});
 	},
-	
+
+	onStopClick : function(grid, rowIndex, colIndex) {
+		var rec = grid.getStore().getAt(rowIndex);
+		var bundleId = rec.get('id');
+		Ext.Ajax.request({
+			url : 'service/bundles',
+			params : {
+				bundleId : bundleId
+			},
+			success : this.onStopClickSuccess,
+			failure : WebConsole.onAjaxFailure,
+			scope : this
+		});
+	},
+
+	onStopClickSuccess : function(response) {
+		this.bundlesStore.load();
+	},
+
 	onUninstallClick : function() {
 		alert('uninstall...');
 	},

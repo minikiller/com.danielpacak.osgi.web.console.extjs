@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
 import org.osgi.framework.Constants;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.packageadmin.ExportedPackage;
@@ -27,13 +28,13 @@ import org.osgi.service.packageadmin.PackageAdmin;
 
 @SuppressWarnings("serial")
 public class BundlesServlet extends HttpServlet {
-	
+
 	private BundleContext bundleContext;
 
 	public BundlesServlet(BundleContext bundleContext) {
 		this.bundleContext = bundleContext;
 	}
-	
+
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		resp.setContentType("application/json");
@@ -44,6 +45,24 @@ public class BundlesServlet extends HttpServlet {
 		ObjectMapper om = new ObjectMapper();
 		om.writeValue(resp.getWriter(), jsonBundles);
 	}
+
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String action = req.getParameter("action");
+		Long bundleId = Long.valueOf(req.getParameter("bundleId"));
+
+		Bundle bundle = bundleContext.getBundle(bundleId);
+		try {
+			if ("stop".equals(action)) {
+				bundle.stop();
+			} else if ("start".equals(action)) {
+				bundle.start();
+			}
+			resp.setContentType("application/json");
+			resp.getWriter().print("{success : true}");
+		} catch (BundleException e) {
+			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+	};
 
 	PackageAdmin getPackageAdmin() {
 		ServiceReference ref = bundleContext.getServiceReference(PackageAdmin.class.getName());
