@@ -19,8 +19,10 @@ will be a nice example of using this amazing RIA framework.
 
 ![Groovy Console Tab Screenshot](https://github.com/danielpacak/osgi-enterprise-webconsole/raw/master/README/osgi-web-console-groovy-console-tab.png)
 
- import org.osgi.framework.Bundle
- import org.osgi.framework.ServiceReference
+    import org.osgi.framework.Bundle
+    import org.osgi.framework.ServiceReference
+
+
  import org.osgi.service.metatype.MetaTypeService
  import org.osgi.service.metatype.MetaTypeInformation
  import org.osgi.service.metatype.ObjectClassDefinition
