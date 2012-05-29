@@ -21,27 +21,25 @@ will be a nice example of using this amazing RIA framework.
 
     import org.osgi.framework.Bundle
     import org.osgi.framework.ServiceReference
+    import org.osgi.service.metatype.MetaTypeService
+    import org.osgi.service.metatype.MetaTypeInformation
+    import org.osgi.service.metatype.ObjectClassDefinition
+    import org.osgi.service.metatype.AttributeDefinition
 
+    ServiceReference metatypeRef = bundleContext.getServiceReference(MetaTypeService.class.name)
+    MetaTypeService service = (MetaTypeService) bundleContext.getService(metatypeRef)
 
- import org.osgi.service.metatype.MetaTypeService
- import org.osgi.service.metatype.MetaTypeInformation
- import org.osgi.service.metatype.ObjectClassDefinition
- import org.osgi.service.metatype.AttributeDefinition
+    Bundle myBundle = bundleContext.getBundle(19) // TODO you might need to change this ID
 
- ServiceReference metatypeRef = bundleContext.getServiceReference(MetaTypeService.class.name)
- MetaTypeService service = (MetaTypeService) bundleContext.getService(metatypeRef)
+    MetaTypeInformation information = service.getMetaTypeInformation(myBundle)
 
- Bundle myBundle = bundleContext.getBundle(19) // TODO you might need to change this ID
+    ObjectClassDefinition ocd = information.getObjectClassDefinition("org.apache.felix.fileinstall", null)
+    AttributeDefinition[] attributes = ocd?.getAttributeDefinitions(ObjectClassDefinition.ALL)
 
- MetaTypeInformation information = service.getMetaTypeInformation(myBundle)
-
- ObjectClassDefinition ocd = information.getObjectClassDefinition("org.apache.felix.fileinstall", null)
- AttributeDefinition[] attributes = ocd?.getAttributeDefinitions(ObjectClassDefinition.ALL)
-
- attributes.each {
-   println "id = $it.ID name=$it.name description=$it.description defaultValue=$it.defaultValue"
-   println it.validate('some random value')
- }
+    attributes.each {
+        println "id = $it.ID name=$it.name description=$it.description defaultValue=$it.defaultValue"
+        println it.validate('some random value')
+    }
 
 ## Extensions
 
