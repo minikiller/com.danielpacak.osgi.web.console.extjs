@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- http://www.osgi.org/xmlns/metatype/v1.0.0/metatype.xsd -->
+<metatype:MetaData xmlns:metatype="http://www.osgi.org/xmlns/metatype/v1.0.0">
+  
+  <OCD name="org.danielpacak.webconsole.config" id="org.danielpacak.webconsole.config" description="OSGi Web Console Configuration">
+    <AD name="Context Root" id="webconsole.context.root" required="true" type="String" default="/webconsole"/>
+    <AD name="HTTP Port" id="webconsole.http.port" required="true" type="Integer" default="8080"/>
+  </OCD>
+
+    <Designate pid="org.danielpacak.webconsole">
+        <Object ocdref="org.danielsoft.webconsole"/>
+    </Designate>
+
+</metatype:MetaData>
